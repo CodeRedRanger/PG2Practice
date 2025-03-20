@@ -19,10 +19,13 @@ private: //make private later
 	std::string m_hairColor; 
 	std::string m_eyeColor; 
 
+	//took out const because couldn't assign iterator value to map 
+	std::vector<std::string> HEIGHTS = { "Tall", "Short" };
+	std::vector<std::string> HAIRCOLORS = { "Blond", "Brown", "Bald" };
+	std::vector<std::string> EYECOLORS = { "Blue", "Brown", "Green" };
+
 public: 
-	const std::vector<std::string> HEIGHTS = { "Tall", "Short"};
-	const std::vector<std::string> HAIRCOLOR = { "Blond", "Brown", "Bald"};
-	const std::vector<std::string> EYECOLOR = { "Blue", "Brown", "Green"};
+	
 
 
 public:
@@ -89,6 +92,23 @@ public:
 	void SetEyeColor(const std::string& eyeColor)
 	{
 		m_eyeColor = eyeColor;
+	}
+
+
+	const std::vector<std::string>& GetHEIGHTS()
+	{
+		return HEIGHTS;
+	}
+
+
+	const std::vector<std::string>& GetHAIRCOLORS()
+	{
+		return HAIRCOLORS;
+	}
+
+	const std::vector<std::string>& GetEYECOLORS()
+	{
+		return EYECOLORS;
 	}
 
 

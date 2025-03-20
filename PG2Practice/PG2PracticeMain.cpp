@@ -34,9 +34,9 @@ int main()
 	srand(time(0)); 
 	
 	//take this out
-	std::map <std::string, std::vector<std::string>> suspects; 
+	//std::map <std::string, std::vector<std::string>> suspects; 
 	
-	std::map <std::string, std::vector<Suspect>> suspects2
+	std::map <std::string, Suspect> suspects2; 
 
 	std::string file = "Suspects.csv"; 
 
@@ -74,9 +74,10 @@ int main()
 	//for (std::vector<std::string>::iterator it = susTraitVec.begin(); it != susTraitVec.end(); it += 5) 
 	for (std::vector<Suspect>::iterator it = suspectVec.begin(); it != suspectVec.end(); ++it)
 	{
+		//take this out
+		//suspects[it->GetName()] = {(it->GetSex()), (it->GetHeight()), (it->GetHairColor()), (it->GetEyeColor())};
 
-		suspects[it->GetName()] = {(it->GetSex()), (it->GetHeight()), (it->GetHairColor()), (it->GetEyeColor())};
-
+		suspects2[it->GetName()] = *it;
 
 	}
 
@@ -102,40 +103,51 @@ int main()
 			{
 				//could just print from vector of suspects, but since I created map, will do below
 
-				std::map<std::string, std::vector<std::string>>::iterator iter = suspects.begin();
+				//take this out
+				//std::map<std::string, std::vector<std::string>>::iterator iter = suspects.begin();
+				
 				//change this iterator to string/Suspect ***********
-				std::map < std::string, std::vector<Suspect>::iterator iterA = suspects2.begin(); 
+				std::map <std::string, Suspect>::iterator iter = suspects2.begin(); 
 
 				std::string suspectName = iter->first;
-				std::vector<std::string> traits = iter->second;
+
+				//take this out
+				//std::vector<std::string> traits = iter->second;
+
+				Suspect traits = iter->second; 
 
 				std::cout << "-----SUSPECTS-----\n" << std::endl;
 
-				while (iter != suspects.end())
+				while (iter != suspects2.end())
 				{
 					suspectName = iter->first;
 					traits = iter->second;
 
 					std::cout << "Suspect name: " << suspectName << std::endl;
 
-					for (int i = 0; i < iter->second.size(); ++i)
+					//for (int i = 0; i < iter->second.size(); ++i)
+					for (int i = 0; i < suspects2.size(); ++i)
 					{
 						switch (i)
 						{
 						case 0:
-							std::cout << "Sex: " << iter->second.at(i) << std::endl;
+							//std::cout << "Sex: " << iter->second.at(i) << std::endl;
+							std::cout << "Sex: " << iter->second.GetSex() << std::endl;
 							break;
 
 						case 1:
-							std::cout << "Height: " << iter->second.at(i) << std::endl;
+							//std::cout << "Height: " << iter->second.at(i) << std::endl;
+							std::cout << "Height: " << iter->second.GetHeight() << std::endl;
 							break;
 
 						case 2:
-							std::cout << "Hair Color: " << iter->second.at(i) << std::endl;
+							//std::cout << "Hair Color: " << iter->second.at(i) << std::endl;
+							std::cout << "Hair Color: " << iter->second.GetHairColor() << std::endl;
 							break;
 
 						case 3:
-							std::cout << "Eye Color: " << iter->second.at(i) << "\n" << std::endl;
+							//std::cout << "Eye Color: " << iter->second.at(i) << "\n" << std::endl;
+							std::cout << "Eye Color: " << iter->second.GetEyeColor() << "\n" << std::endl;
 							break;
 
 						default:
@@ -158,9 +170,10 @@ int main()
 				std::cout << "What is your character's name? ";
 				getline(std::cin, name);
 				//Check map if name exists
-				std::map<std::string, std::vector<std::string>>::iterator isFound = suspects.find(name);
+				//std::map<std::string, std::vector<std::string>>::iterator isFound = suspects.find(name);
+				std::map<std::string, Suspect>::iterator isFound = suspects2.find(name);
 
-				if (isFound != suspects.end())
+				if (isFound != suspects2.end())
 				{
 					std::cout << "That suspect name already exists!\n" << std::endl;
 				}
@@ -168,10 +181,13 @@ int main()
 				else
 				{
 					Suspect sus; 
-
 					//Add to map if name doesn't exist
-					auto isInserted = suspects.insert(std::make_pair(name, std::vector<std::string>{"", "", "", ""}));
+					//auto isInserted = suspects.insert(std::make_pair(name, std::vector<std::string>{"", "", "", ""}));
 					//suspects[name] = { "","","",""};
+					auto isInserted = suspects2.insert(std::make_pair(name, sus));
+					
+					sus.SetName(name); 
+					suspects2[name] = sus;
 
 					//Add getline below. Can randomly generate height, hair and eye color; need enum of each trait
 					std::string sexStr;
@@ -184,33 +200,43 @@ int main()
 					{
 						sexStr == "1" ? sex = "Male" : sex = "Female";
 
+						//suspects[name] = { sex, "", "", "" }; 
+						sus.SetSex(sex); 
 
-						suspects[name] = { sex, "", "", "" };
 						//std::cout << "What is your character's height? ";
-						height = sus.HEIGHTS.at(rand() % sus.HEIGHTS.size());
-						suspects[name] = { sex, height, "", "" };
+						height = sus.GetHEIGHTS().at(rand() % sus.GetHEIGHTS().size());
+						//suspects[name] = { sex, height, "", "" };
+						sus.SetHeight(height);
+						
 						//std::cout << "What is your character's hair color? ";
-						hairColor = sus.HAIRCOLOR.at(rand() % sus.HAIRCOLOR.size());
-						suspects[name] = { sex, height, hairColor, "" };
+						hairColor = sus.GetHAIRCOLORS().at(rand() % sus.GetHAIRCOLORS().size());
+						//suspects[name] = { sex, height, hairColor, "" };
+						sus.SetHairColor(hairColor);
+						
 						//std::cout << "What is your character's eye color? ";
-						eyeColor = sus.EYECOLOR.at(rand() % sus.EYECOLOR.size());
-						suspects[name] = { sex, height, hairColor, eyeColor };
-
+						eyeColor = sus.GetEYECOLORS().at(rand() % sus.GetEYECOLORS().size());
+						//suspects[name] = { sex, height, hairColor, eyeColor };
+						sus.SetEyeColor(eyeColor);
+						
+						suspects2[name] = sus;
 
 						//output it to csv, using seralize function
 
 						char delimiter = '*';
 						std::ofstream outFile(file);
 
-						for (std::map<std::string, std::vector<std::string>>::iterator iter2 = suspects.begin();
-							iter2 != suspects.end(); ++iter2)
+						/*for (std::map<std::string, std::vector<std::string>>::iterator iter2 = suspects.begin();
+							iter2 != suspects.end(); ++iter2)*/
+
+						for (std::map<std::string, Suspect>::iterator iter2 = suspects2.begin();
+							iter2 != suspects2.end(); ++iter2)
 						{
-							sus.SetName(iter2->first);
-							sus.SetSex(iter2->second.at(0));
-							sus.SetHeight(iter2->second.at(1));
-							sus.SetHairColor(iter2->second.at(2));
-							sus.SetEyeColor(iter2->second.at(3));
-							sus.Serialize(outFile, delimiter);
+							//sus.SetName(iter2->first);
+							//sus.SetSex(iter2->second.at(0));
+							//sus.SetHeight(iter2->second.at(1));
+							//sus.SetHairColor(iter2->second.at(2));
+							//sus.SetEyeColor(iter2->second.at(3));
+							iter2->second.Serialize(outFile, delimiter);
 						}
 						outFile.close();
 					}
@@ -218,7 +244,7 @@ int main()
 					else
 					{
 						std::cout << "\nInvalid input\n" << std::endl; 
-						suspects.erase(name); 
+						suspects2.erase(name); 
 					}
 
 				}
