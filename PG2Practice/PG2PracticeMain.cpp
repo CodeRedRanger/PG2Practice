@@ -253,7 +253,42 @@ int main()
 			case 3:
 				//Delete from map
 				//output it to csv using serialize function
-				break; 
+			{
+				std::string name;
+				std::cout << "What character would you like to remove from suspect list? ";
+				getline(std::cin, name);
+				//Check map if name exists
+			
+				std::map<std::string, Suspect>::iterator isFound = suspects2.find(name);
+
+				if (isFound == suspects2.end())
+				{
+					std::cout << "That character is not on the suspect list!\n" << std::endl;
+				}
+
+				else
+				{
+
+					suspects2.erase(name); 
+					std::cout << name << " has been removed from the suspect list!\n" << std::endl; 
+
+				//output updated list to csv, using seralize function
+
+					char delimiter = '*';
+					std::ofstream outFile(file);
+
+					for (std::map<std::string, Suspect>::iterator iter2 = suspects2.begin();
+							iter2 != suspects2.end(); ++iter2)
+						{
+				
+							iter2->second.Serialize(outFile, delimiter);
+						}
+						outFile.close();
+				}
+
+			
+				break;
+			}
 			
 			case 4:
 				//Delete map
