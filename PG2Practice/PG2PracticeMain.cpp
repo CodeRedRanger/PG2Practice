@@ -220,6 +220,28 @@ int main()
 						
 						suspects2[name] = sus;
 
+						for (std::map<std::string, Suspect>::iterator iter3 = suspects2.begin();
+							iter3 != suspects2.end(); ++iter3)
+						{
+							if (sus.GetName() != iter3->second.GetName() && sus.GetSex() == iter3->second.GetSex()
+								&& sus.GetHeight() == iter3->second.GetHeight()
+								&& sus.GetHairColor() == iter3->second.GetHairColor()
+								&& sus.GetEyeColor() == iter3->second.GetEyeColor())
+							{
+								std::cout << iter3->second.GetName() << " has all the same characteristics as " <<
+									name << "!\n"; 
+								std::cout << "It is recommended that you remove one of these characters from the suspect list.\n"; 
+								break; 
+								//OR take out instead of recommending taking out; go back and regenerate characteristics again; 
+								//use a while repeatSuspsect true around generated height, hair and eye color above
+								//use an iterator inside while loop that increases by 1 and once it reaches 50,
+								//calls break in case a unique character can't be formed,
+								//gives error message to user (could not generate unique
+								// suspect. All combinations of traits already exist.), and removes character from map.
+							}
+						}
+
+
 						//output it to csv, using seralize function
 
 						char delimiter = '*';
