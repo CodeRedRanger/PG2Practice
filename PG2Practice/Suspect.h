@@ -6,7 +6,6 @@
 #include <sstream>
 #include <map>
 
-//Enums for names, sex, height, hair and eye color; use vectors of strings
 
 class Suspect
 {
@@ -24,13 +23,13 @@ private: //make private later
 	std::map <std::string, Suspect> m_suspects;
 
 	//took out const because couldn't assign iterator value to map 
+	std::vector<std::string> NAMES = { "Albert", "Betty", "Chris", "Diane", "Eddy", "Fran", "Gary", "Helga",
+	"Ian", "Jenny" ,"Kent" , "Lakshmi" , "Mike", "Nancy" ,"Oscar" ,"Patty" ,"Quincy" , "Rita", "Steve" , "Tina",
+	"Umar" ,"Vanessa" , "Walt" , "Xena" , "Yan" , "Zelda" }; 
+	std::vector<std::string> SEXES = { "Male", "Female" }; 
 	std::vector<std::string> HEIGHTS = { "Tall", "Short" };
 	std::vector<std::string> HAIRCOLORS = { "Blond", "Brown", "Bald" };
-	std::vector<std::string> EYECOLORS = { "Blue", "Brown", "Green" };
-
-public: 
-	
-
+	std::vector<std::string> EYECOLORS = { "Blue", "Brown", "Green" };	
 
 public:
 
@@ -109,6 +108,16 @@ public:
 	void SetSuspectMap(const std::map<std::string, Suspect>& suspectMap)
 	{
 		m_suspects = suspectMap; 
+	}
+
+	const std::vector<std::string>& GetNAMES()
+	{
+		return NAMES;
+	}
+
+	const std::vector<std::string>& GetSEXES()
+	{
+		return SEXES;
 	}
 
 	const std::vector<std::string>& GetHEIGHTS()
