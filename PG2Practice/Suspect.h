@@ -1,8 +1,10 @@
 #pragma once
+#include <iostream>
 #include <string>
 #include <fstream>
 #include <vector>
 #include <sstream>
+#include <map>
 
 //Enums for names, sex, height, hair and eye color; use vectors of strings
 
@@ -18,6 +20,8 @@ private: //make private later
 	std::string m_height;
 	std::string m_hairColor; 
 	std::string m_eyeColor; 
+
+	std::map <std::string, Suspect> m_suspects;
 
 	//took out const because couldn't assign iterator value to map 
 	std::vector<std::string> HEIGHTS = { "Tall", "Short" };
@@ -39,6 +43,8 @@ public:
 	{
 		Deserialize(csvData, delimiter); 
 	}
+
+	void PrintSuspects(); 
 
 	void Serialize(std::ofstream& outFile, char delimiter); 
 
@@ -94,6 +100,16 @@ public:
 		m_eyeColor = eyeColor;
 	}
 
+
+	std::map<std::string, Suspect>& GetSuspectMap()
+	{
+		return m_suspects; 
+	}
+
+	void SetSuspectMap(const std::map<std::string, Suspect>& suspectMap)
+	{
+		m_suspects = suspectMap; 
+	}
 
 	const std::vector<std::string>& GetHEIGHTS()
 	{

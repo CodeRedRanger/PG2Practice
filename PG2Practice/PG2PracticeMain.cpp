@@ -1,5 +1,4 @@
-//Purpose of project
-//Guess Who
+
 
 //Menu:
 //1. Load map of suspects  check
@@ -27,59 +26,48 @@
 #include <fstream> //for input stream
 #include <string>
 #include <sstream> //for stringstream
+#include <algorithm> //for max()
 #include "Suspect.h"
 
 int main()
 {
+
 	srand(time(0)); 
-	
-	//take this out
-	//std::map <std::string, std::vector<std::string>> suspects; 
-	
-	std::map <std::string, Suspect> suspects2; 
+
+	Suspect suspect; 
 
 	std::string file = "Suspects.csv"; 
 
 
 	std::ifstream suspectFile(file);
-	std::string suspect; 
+	std::string suspectNew; 
 	char traitDelimiter = '*'; 
-	
-	//take this out
-	//std::vector<std::string> susTraitVec;
+
 
 	//vector of suspects
 	std::vector<Suspect> suspectVec; 
 
-	while (std::getline(suspectFile, suspect))
+	while (std::getline(suspectFile, suspectNew))
 	{
 	
-		//std::stringstream susTraits(suspect); 
-		//std::string trait; 
-		
-
-		//while (std::getline(susTraits, trait, traitDelimiter))
-		//{
 		//create suspect
-		Suspect nextSus(suspect, traitDelimiter); 
+		Suspect nextSus(suspectNew, traitDelimiter); 
 		suspectVec.push_back(nextSus); 
 
-		//create vector of suspects, and then feed into map instead of vector traits
-		//susTraitVec.push_back(trait); 
-		//}
 	}
 
 	suspectFile.close();
 
-	//for (std::vector<std::string>::iterator it = susTraitVec.begin(); it != susTraitVec.end(); it += 5) 
+	std::map<std::string, Suspect> suspects2;
+
 	for (std::vector<Suspect>::iterator it = suspectVec.begin(); it != suspectVec.end(); ++it)
 	{
-		//take this out
-		//suspects[it->GetName()] = {(it->GetSex()), (it->GetHeight()), (it->GetHairColor()), (it->GetEyeColor())};
 
 		suspects2[it->GetName()] = *it;
 
 	}
+
+	suspect.SetSuspectMap(suspects2); 
 
 	bool gameOver = false; 
 	while (gameOver == false)
@@ -91,6 +79,7 @@ int main()
 	std::cout << "4. Generate new list of suspects.\n";
 	std::cout << "5. Play \"Guess Who!?\"\n"; 
 	std::cout << "6. Quit.\n"; 
+	//Incorporate high score system for number of guesses, and add choice to view high scores.
 
 	std::string choiceStr; 
 	getline(std::cin, choiceStr); 
@@ -101,61 +90,54 @@ int main()
 		{
 			case 1:
 			{
-				//could just print from vector of suspects, but since I created map, will do below
-
-				//take this out
-				//std::map<std::string, std::vector<std::string>>::iterator iter = suspects.begin();
+				suspect.PrintSuspects(); 
 				
-				//change this iterator to string/Suspect ***********
-				std::map <std::string, Suspect>::iterator iter = suspects2.begin(); 
+				//std::map <std::string, Suspect>::iterator iter = suspects2.begin(); 
 
-				std::string suspectName = iter->first;
+				//std::string suspectName = iter->first;
 
-				//take this out
-				//std::vector<std::string> traits = iter->second;
+				//Suspect traits = iter->second; 
 
-				Suspect traits = iter->second; 
+				//std::cout << "-----SUSPECTS-----\n" << std::endl;
 
-				std::cout << "-----SUSPECTS-----\n" << std::endl;
+				//while (iter != suspects2.end())
+				//{
+				//	suspectName = iter->first;
+				//	traits = iter->second;
 
-				while (iter != suspects2.end())
-				{
-					suspectName = iter->first;
-					traits = iter->second;
+				//	std::cout << "Suspect name: " << suspectName << std::endl;
 
-					std::cout << "Suspect name: " << suspectName << std::endl;
+				//	//for (int i = 0; i < iter->second.size(); ++i)
+				//	for (int i = 0; i < suspects2.size(); ++i)
+				//	{
+				//		switch (i)
+				//		{
+				//		case 0:
+				//			//std::cout << "Sex: " << iter->second.at(i) << std::endl;
+				//			std::cout << "Sex: " << iter->second.GetSex() << std::endl;
+				//			break;
 
-					//for (int i = 0; i < iter->second.size(); ++i)
-					for (int i = 0; i < suspects2.size(); ++i)
-					{
-						switch (i)
-						{
-						case 0:
-							//std::cout << "Sex: " << iter->second.at(i) << std::endl;
-							std::cout << "Sex: " << iter->second.GetSex() << std::endl;
-							break;
+				//		case 1:
+				//			//std::cout << "Height: " << iter->second.at(i) << std::endl;
+				//			std::cout << "Height: " << iter->second.GetHeight() << std::endl;
+				//			break;
 
-						case 1:
-							//std::cout << "Height: " << iter->second.at(i) << std::endl;
-							std::cout << "Height: " << iter->second.GetHeight() << std::endl;
-							break;
+				//		case 2:
+				//			//std::cout << "Hair Color: " << iter->second.at(i) << std::endl;
+				//			std::cout << "Hair Color: " << iter->second.GetHairColor() << std::endl;
+				//			break;
 
-						case 2:
-							//std::cout << "Hair Color: " << iter->second.at(i) << std::endl;
-							std::cout << "Hair Color: " << iter->second.GetHairColor() << std::endl;
-							break;
+				//		case 3:
+				//			//std::cout << "Eye Color: " << iter->second.at(i) << "\n" << std::endl;
+				//			std::cout << "Eye Color: " << iter->second.GetEyeColor() << "\n" << std::endl;
+				//			break;
 
-						case 3:
-							//std::cout << "Eye Color: " << iter->second.at(i) << "\n" << std::endl;
-							std::cout << "Eye Color: " << iter->second.GetEyeColor() << "\n" << std::endl;
-							break;
-
-						default:
-							break;
-						}
-					}
-					++iter;
-				}
+				//		default:
+				//			break;
+				//		}
+				//	}
+				//	++iter;
+				//}
 			}
 			//end of outer case 1
 			break;
@@ -170,7 +152,8 @@ int main()
 				std::cout << "What is your character's name? ";
 				getline(std::cin, name);
 				//Check map if name exists
-				//std::map<std::string, std::vector<std::string>>::iterator isFound = suspects.find(name);
+				
+				std::map<std::string, Suspect> suspects2 = suspect.GetSuspectMap(); 
 				std::map<std::string, Suspect>::iterator isFound = suspects2.find(name);
 
 				if (isFound != suspects2.end())
@@ -188,6 +171,7 @@ int main()
 					
 					sus.SetName(name); 
 					suspects2[name] = sus;
+					suspect.SetSuspectMap(suspects2); 
 
 					//Add getline below. Can randomly generate height, hair and eye color; need enum of each trait
 					std::string sexStr;
@@ -219,6 +203,7 @@ int main()
 						sus.SetEyeColor(eyeColor);
 						
 						suspects2[name] = sus;
+						suspect.SetSuspectMap(suspects2); 
 
 						for (std::map<std::string, Suspect>::iterator iter3 = suspects2.begin();
 							iter3 != suspects2.end(); ++iter3)
@@ -267,6 +252,7 @@ int main()
 					{
 						std::cout << "\nInvalid input\n" << std::endl; 
 						suspects2.erase(name); 
+						suspect.SetSuspectMap(suspects2); 
 					}
 
 				}
@@ -281,6 +267,8 @@ int main()
 				getline(std::cin, name);
 				//Check map if name exists
 			
+				std::map<std::string, Suspect> suspects2 = suspect.GetSuspectMap(); 
+
 				std::map<std::string, Suspect>::iterator isFound = suspects2.find(name);
 
 				if (isFound == suspects2.end())
@@ -293,6 +281,7 @@ int main()
 
 					suspects2.erase(name); 
 					std::cout << name << " has been removed from the suspect list!\n" << std::endl; 
+					suspect.SetSuspectMap(suspects2); 
 
 				//output updated list to csv, using seralize function
 
@@ -313,24 +302,170 @@ int main()
 			}
 			
 			case 4:
+			{
 				//Delete map
 				//Create enum of names, sex, height, hair color, eye color
 				//Go through loop of 6; generate random choice from each enum
 				//Add those to the map as key string and value vector of strings
 				//output it to csv using serialize function
-				break; 
+				break;
+			}
 
 			case 5:
+			{
 				//Select suspect key from map
-				//Choose 1 (1. Guess who did it? 2. Learn more about suspect? 3. Tell me who did it. 4. Print Suspect list)
-				//If choose 1. -> Who did it? List of suspects 1-6, and choose. If correct: You guessed right! and back to main menu
-				//if choose wrong. Sorry that's wrong, and back to prior menu (1-3)
-				//If choose 2: What do you want to know? Sex, Height, Hair Color, Eye Color (1-4); based on choice;
-				//print out value for that suspect key at that location in vector of values
-				//3. Print out key name
-				//4. Print suspect list as above (can create deseralize function)
+
+
+				std::map<std::string, Suspect> suspects2 = suspect.GetSuspectMap(); 
+
+				int randomNum = rand() % suspects2.size();
+
+				std::map<std::string, Suspect>::iterator iterRand = suspects2.begin();
+
+				std::advance(iterRand, randomNum);
+
+				Suspect sus2 = iterRand->second;
+
+				int numberOfGuesses = 1; 
+				int numberOfClues = 0; 
+				bool continuePlay = true; 
+				int score = 10; 
+				while (continuePlay)
+				{
+					std::cout << "Make a choice from the list below.\n";
+					std::cout << "1. Guess who committed the crime!\n";
+					std::cout << "2. Learn more about the suspect.\n";
+					std::cout << "3. Print the suspect list.\n";
+					std::cout << "4. Reveal the criminal!\n";
+
+					std::string choiceStr;
+
+					getline(std::cin, choiceStr);
+
+					int choice = stoi(choiceStr);
+
+					switch (choice)
+					{
+					case 1:
+					{
+						std::string suspectGuess;
+						std::cout << "Who do you think committed the crime? "; 
+						getline(std::cin, suspectGuess); 
+
+						if (suspectGuess == sus2.GetName())
+						{
+							std::cout << "That's right!\n";
+							std::cout << "The culprit is " << sus2.GetName() << "!\n";
+							std::cout << "It took you " << numberOfGuesses; 
+								
+							if (numberOfGuesses == 1)
+							{
+								std::cout << " try to guess the culprit!\n";
+							}
+
+							else
+							{
+								std::cout << " tries to guess the culprit!\n";
+							}
+
+							std::cout << "Number of clues needed to guess culprit: " << numberOfClues << "\n"; 
+							std::cout << "Total score [11 - (number of guesses + number of clues)] : " << std::max(score, 0) << "\n"
+								<< std::endl; 
+
+							continuePlay = false;
+						}
+						else
+						{
+							std::cout << "I'm sorry, that's wrong.\n";
+							std::cout << "Total guesses so far: " << numberOfGuesses << "\n" << std::endl;
+							numberOfGuesses++;
+							score--; 
+						}
+						break;
+					}
+					case 2:
+					{    
+
+						std::cout << "What do you want to know about the suspect?\n";
+						std::cout << "1. Sex\n";
+						std::cout << "2. Height\n";
+						std::cout << "3. Hair Color\n";
+						std::cout << "4. Eye Color\n"; 
+
+						std::string traitChoiceStr; 
+						getline(std::cin, traitChoiceStr);
+
+						int traitChoice = stoi(traitChoiceStr); 
+
+						//If choose 2: What do you want to know? Sex, Height, Hair Color, Eye Color (1-4); based on choice;
+						//print out value for that suspect key at that location in vector of values
+						switch (traitChoice)
+						{
+						case 1:
+						{
+							std::cout << "The suspect's sex: " << sus2.GetSex() << "\n" << std::endl; 
+							numberOfClues++; 
+							score--; 
+							break;
+						}
+
+						case 2:
+						{
+							std::cout << "The suspect's height: " << sus2.GetHeight() << "\n" << std::endl; 
+							numberOfClues++;
+							score--;
+							break; 
+						}
+
+						case 3:
+						{
+							std::cout << "The suspect's hair color: " << sus2.GetHairColor() << "\n" << std::endl;
+							numberOfClues++;
+							score--;
+							break;
+						}
+
+						case 4:
+						{
+							std::cout << "The suspect's eye color: " << sus2.GetEyeColor() << "\n" << std::endl;
+							numberOfClues++;
+							score--;
+							break; 
+						}
+
+						default:
+						{
+							std::cout << "Invalid choice!\n" << std::endl; 
+							break; 
+						}
+
+						}
+
+						
+						break;
+					}
+					case 3:
+					{
+						suspect.PrintSuspects(); 
+						break;
+					}
+					case 4:
+					{
+						std::cout << "The culprit is " << sus2.GetName() << "!\n" << std::endl;
+						continuePlay = false;
+						break;
+					}
+					default:
+					{
+						std::cout << "Invalid choice!\n" << std::endl;
+						break;
+					}
+					}
+				}
+				
 
 				break;
+			}
 
 			case 6:
 				gameOver = true; 

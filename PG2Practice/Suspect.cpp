@@ -1,5 +1,55 @@
 #include "Suspect.h"
 
+void Suspect::PrintSuspects()
+{
+
+	std::map<std::string, Suspect> suspects2 = GetSuspectMap(); 
+
+	std::map <std::string, Suspect>::iterator iter = suspects2.begin();
+
+	std::string suspectName = iter->first;
+
+	Suspect traits = iter->second;
+
+	std::cout << "-----SUSPECTS-----\n" << std::endl;
+
+	while (iter != suspects2.end())
+	{
+		suspectName = iter->first;
+		traits = iter->second;
+
+		std::cout << "Suspect name: " << suspectName << std::endl;
+
+		for (int i = 0; i < suspects2.size(); ++i)
+		{
+			switch (i)
+			{
+			case 0:
+				std::cout << "Sex: " << iter->second.GetSex() << std::endl;
+				break;
+
+			case 1:
+				std::cout << "Height: " << iter->second.GetHeight() << std::endl;
+				break;
+
+			case 2:
+				std::cout << "Hair Color: " << iter->second.GetHairColor() << std::endl;
+				break;
+
+			case 3:
+				std::cout << "Eye Color: " << iter->second.GetEyeColor() << "\n" << std::endl;
+				break;
+
+			default:
+				break;
+			}
+		}
+		++iter;
+	}
+
+
+}
+
 
 void Suspect::Serialize(std::ofstream& outFile, char delimiter)
 {
