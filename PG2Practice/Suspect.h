@@ -53,6 +53,8 @@ public:
 
 	void NewSuspectList(const std::string& file, const char traitDelimiter); 
 
+	void PlayGame(); 
+
 
 	//Serialize/deserialize functions
 

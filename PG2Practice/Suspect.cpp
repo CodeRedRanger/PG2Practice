@@ -322,6 +322,156 @@ void Suspect::NewSuspectList(const std::string& file, const char traitDelimiter)
 
 }
 
+void Suspect::PlayGame()
+{
+	//Select suspect key from map
+	std::map<std::string, Suspect> suspects2 = this->GetSuspectMap();
+
+	int randomNum = rand() % suspects2.size();
+
+	std::map<std::string, Suspect>::iterator iterRand = suspects2.begin();
+
+	std::advance(iterRand, randomNum);
+
+	Suspect sus2 = iterRand->second;
+
+	int numberOfGuesses = 1;
+	int numberOfClues = 0;
+	bool continuePlay = true;
+	int score = 10;
+
+	while (continuePlay)
+	{
+		std::cout << "Make a choice from the list below.\n";
+		std::cout << "1. Guess who committed the crime!\n";
+		std::cout << "2. Learn more about the suspect.\n";
+		std::cout << "3. Print the suspect list.\n";
+		std::cout << "4. Reveal the criminal!\n";
+
+		std::string choiceStr;
+
+		getline(std::cin, choiceStr);
+
+		int choice = stoi(choiceStr);
+
+		switch (choice)
+		{
+			case 1:
+			{
+				std::string suspectGuess;
+				std::cout << "\nWho do you think committed the crime? ";
+				getline(std::cin, suspectGuess);
+
+				if (suspectGuess == sus2.GetName())
+				{
+					std::cout << "\nThat's right!\n";
+					std::cout << "The culprit is " << sus2.GetName() << "!\n";
+					std::cout << "\nIt took you " << numberOfGuesses;
+
+					if (numberOfGuesses == 1)
+					{
+						std::cout << " try to guess the culprit!\n";
+					}
+
+					else
+					{
+						std::cout << " tries to guess the culprit!\n";
+					}
+
+					std::cout << "Number of clues needed to guess culprit: " << numberOfClues << "\n";
+					std::cout << "\nTotal score [11 - (number of guesses + number of clues)] : " << std::max(score, 0) << "\n"
+						<< std::endl;
+
+					continuePlay = false;
+				}
+				else
+				{
+					std::cout << "\nI'm sorry, that's wrong.\n";
+					std::cout << "Total guesses so far: " << numberOfGuesses << "\n" << std::endl;
+					numberOfGuesses++;
+					score--;
+				}
+				break;
+			}
+			case 2:
+			{
+
+				std::cout << "\nWhat do you want to know about the suspect?\n";
+				std::cout << "1. Sex\n";
+				std::cout << "2. Height\n";
+				std::cout << "3. Hair Color\n";
+				std::cout << "4. Eye Color\n";
+
+				std::string traitChoiceStr;
+				getline(std::cin, traitChoiceStr);
+
+				int traitChoice = stoi(traitChoiceStr);
+
+				switch (traitChoice)
+				{
+					case 1:
+					{
+						std::cout << "\nThe suspect's sex: " << sus2.GetSex() << "\n" << std::endl;
+						numberOfClues++;
+						score--;
+						break;
+					}
+
+					case 2:
+					{
+						std::cout << "\nThe suspect's height: " << sus2.GetHeight() << "\n" << std::endl;
+						numberOfClues++;
+						score--;
+						break;
+					}
+
+					case 3:
+					{
+						std::cout << "\nThe suspect's hair color: " << sus2.GetHairColor() << "\n" << std::endl;
+						numberOfClues++;
+						score--;
+						break;
+					}
+
+					case 4:
+					{
+						std::cout << "\nThe suspect's eye color: " << sus2.GetEyeColor() << "\n" << std::endl;
+						numberOfClues++;
+						score--;
+					break;
+					}
+
+					default:
+					{
+						std::cout << "\nInvalid choice!\n" << std::endl;
+						break;
+					}
+
+				}
+
+				break;
+			}
+			case 3:
+			{
+				this->PrintSuspects();
+				break;
+			}
+			case 4:
+			{
+				std::cout << "\nThe culprit is " << sus2.GetName() << "!\n" << std::endl;
+				continuePlay = false;
+				break;
+			}
+			default:
+			{
+				std::cout << "\nInvalid choice!\n" << std::endl;
+				break;
+			}
+		}
+	}
+
+}
+
 
 void Suspect::Serialize(std::ofstream& outFile, char delimiter)
 {
