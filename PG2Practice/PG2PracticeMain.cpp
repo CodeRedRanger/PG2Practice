@@ -1,24 +1,3 @@
-
-
-//Menu:
-//1. Load map of suspects  check
-//2. Change map of suspects: Create  your own character...
-//3. Play Who did it! ... Someone spotted a ... "Bald man in a black shirt with big ears! Who was it??
-//Map is a name string key and a vector of traits that are string, bool or int
-//Traits: Tall or short; bald, short hair, long hair; skin: light, medium, dark; ears: big or small; eyes: blue, brown, green
-//Nose big, medium, small; Glasses yes or no; male or female
-//Character class
-//Create a vector of unique pointers to maps -> creates random character sets
-
-
-//Displays all the character names
-//Pick a character
-//Pick a question
-//Guess who did it
-//1. Male/female
-//2. Tall/short ...
-//Answer: This person is a male; this person is short
-
 #include <iostream>
 #include <memory>
 #include <map> // for map
@@ -34,42 +13,17 @@ int main()
 
 	srand(time(0)); 
 
+	std::string file = "Suspects.csv";
+	char traitDelimiter = '*';
+
 	Suspect suspect; 
 
-	std::string file = "Suspects.csv"; 
-
-
-	std::ifstream suspectFile(file);
-	std::string suspectNew; 
-	char traitDelimiter = '*'; 
-
-
-	//vector of suspects
-	std::vector<Suspect> suspectVec; 
-
-	while (std::getline(suspectFile, suspectNew))
-	{
-	
-		//create suspect
-		Suspect nextSus(suspectNew, traitDelimiter); 
-		suspectVec.push_back(nextSus); 
-
-	}
-
-	suspectFile.close();
-
-	std::map<std::string, Suspect> suspects2;
-
-	for (std::vector<Suspect>::iterator it = suspectVec.begin(); it != suspectVec.end(); ++it)
-	{
-
-		suspects2[it->GetName()] = *it;
-
-	}
-
+	std::map<std::string, Suspect> suspects2; 
+	suspects2 = suspect.LoadSuspects(file, traitDelimiter);
 	suspect.SetSuspectMap(suspects2); 
 
 	bool gameOver = false; 
+
 	while (gameOver == false)
 	{
 	std::cout << "Choose one of the following options.\n" << std::endl; 
@@ -219,7 +173,7 @@ int main()
 
 				if (isFound == suspects2.end())
 				{
-					std::cout << "That character is not on the suspect list!\n" << std::endl;
+					std::cout << name << " is not on the suspect list!\n" << std::endl;
 				}
 
 				else
@@ -290,10 +244,13 @@ int main()
 					
 					//check if two names the same, if so, erase name map and --i;
 					//then check if all traits the same, and if so, erase name from map and --i
+					//if suspects2[name] && second.getSex() != (sus.GetSex() && sus.GetHeight()...etc) not found then add
 					
 					suspects2[name] = sus;
 					bool nameRepeat = false;
 					bool traitRepeat = false;
+
+
 
 					for (std::map<std::string, Suspect>:: iterator iterat = suspects2.begin();
 						iterat != suspects2.end(); ++iterat)
@@ -334,7 +291,20 @@ int main()
 						{
 							
 							suspect.SetSuspectMap(suspects2); 
-							//move serialize to here and output stream outside of for loop (see below)
+
+							//output it to csv using serialize function
+
+							//open output stream, file is argument
+							std::ofstream suspectFile(file);
+
+							for (std::map<std::string, Suspect>::iterator serialIt = suspects2.begin();
+								serialIt != suspects2.end(); ++serialIt)
+							{
+								serialIt->second.Serialize(suspectFile, traitDelimiter);
+							}
+							
+							suspectFile.close();
+
 						}
 
 					}
@@ -343,15 +313,7 @@ int main()
 
 				}
 
-				
-				//output it to csv using serialize function
-
-				//open output stream, file is argument
-				// std::ofstream suspectFile(file);
-
-				//suspect.Serialize(suspectFile, traitDelimiter); 
-
-				//suspectFile.close(); 
+	
 
 				break;
 			}

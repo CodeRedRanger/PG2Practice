@@ -43,11 +43,19 @@ public:
 		Deserialize(csvData, delimiter); 
 	}
 
+	std::map<std::string, Suspect> LoadSuspects(std::string file, char tratDelimiter);
+
 	void PrintSuspects(); 
+
+
+	//Serialize/deserialize functions
 
 	void Serialize(std::ofstream& outFile, char delimiter); 
 
 	void Deserialize(std::string csvData, char delimiter); 
+
+
+	//Getters and setters
 
 	const std::string& GetName()
 	{

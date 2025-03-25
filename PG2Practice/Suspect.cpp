@@ -1,5 +1,39 @@
 #include "Suspect.h"
 
+std::map<std::string, Suspect> Suspect::LoadSuspects(std::string file, char traitDelimiter)
+{
+
+	std::ifstream suspectFile(file);
+	std::string suspectNew;
+
+	//vector of suspects
+	std::vector<Suspect> suspectVec;
+
+	while (std::getline(suspectFile, suspectNew))
+	{
+
+		//create suspect
+		Suspect nextSus(suspectNew, traitDelimiter);
+		suspectVec.push_back(nextSus);
+
+	}
+
+	suspectFile.close();
+
+	std::map<std::string, Suspect> suspects;
+
+	for (std::vector<Suspect>::iterator it = suspectVec.begin(); it != suspectVec.end(); ++it)
+	{
+
+		suspects[it->GetName()] = *it;
+
+	}
+
+
+	return suspects; 
+
+}
+
 void Suspect::PrintSuspects()
 {
 
