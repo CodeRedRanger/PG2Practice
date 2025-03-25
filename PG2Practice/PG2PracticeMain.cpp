@@ -209,10 +209,10 @@ int main()
 				std::map<std::string, Suspect> suspects2; 
 				suspect.SetSuspectMap(suspects2); 
 
-				Suspect sus; 
 
-				//Add those to the map as key string and value vector of strings
+				Suspect sus;
 
+				//create 6 new suspects
 				for (int i = 0; i < 6; ++i)
 				{
 					int randNameInt = rand() % 26; 
@@ -243,117 +243,55 @@ int main()
 					sus.SetHairColor(hairColor);
 					sus.SetEyeColor(eyeColor); 
 
-					
-					//check if two names the same, if so, erase name map and --i;
-					//then check if all traits the same, and if so, erase name from map and --i
-					//if suspects2[name] && second.getSex() != (sus.GetSex() && sus.GetHeight()...etc) not found then add
+					//Go through current suspect map and make sure there is not another suspect
+					//that has all the same characteristics as the suspect generated in this loop
+					//even if the names are different
+					bool allTraitsSame = false;
+
+					for (std::map<std::string, Suspect>::iterator traitChecker = suspects2.begin();
+						traitChecker != suspects2.end(); ++ traitChecker)
+					{
+						if (traitChecker->second.GetSex() == sus.GetSex() &&
+							traitChecker->second.GetHeight() == sus.GetHeight() &&
+							traitChecker->second.GetHairColor() == sus.GetHairColor() &&
+							traitChecker->second.GetEyeColor() == sus.GetEyeColor())
+						{
+							allTraitsSame = true;
+							break; 
+						}
+					}
+
 					
 					std::map<std::string, Suspect>::iterator isFound = suspects2.find(name); 
 
-					if (isFound == suspects2.end() || (isFound->second.GetSex() != sus.GetSex() && 
-						isFound->second.GetHeight() != sus.GetHeight() && 
-						isFound->second.GetHairColor() != sus.GetHairColor() &&
-						isFound->second.GetEyeColor() != sus.GetEyeColor()))
+					//save suspect to map if names are different and all traits are not the same
+					if (isFound == suspects2.end() && allTraitsSame == false)
 					{
-							suspects2[name] = sus;
 
-							suspect.SetSuspectMap(suspects2);
+						suspects2[name] = sus;
 
-							//output it to csv using serialize function
+						suspect.SetSuspectMap(suspects2);
 
-							//open output stream, file is argument
-							std::ofstream suspectFile(file);
+						//output new map to csv using serialize function
+						std::ofstream suspectFile(file);
 
-							for (std::map<std::string, Suspect>::iterator serialIt = suspects2.begin();
+						for (std::map<std::string, Suspect>::iterator serialIt = suspects2.begin();
 								serialIt != suspects2.end(); ++serialIt)
-							{
-								serialIt->second.Serialize(suspectFile, traitDelimiter);
-							}
-
-							suspectFile.close();
-
-
+						{
+							serialIt->second.Serialize(suspectFile, traitDelimiter);
 						}
+
+						suspectFile.close();
+
+
+					}
 					else
 					{
+						//if name is duplicate of names in map or character has all the same traits as another
+						//suspect in the map, then don't add suspect to map and remain at same point in for
+						//loop that creates suspects so we still get 6 suspects in the end. 
 						i--; 
 					}
-					//}
-					//else
-					//{
-						//i--;
-						//suspects2.erase(name);
-						//delete below
-					//}
-
-					
-					
-					//moved above
-					//suspects2[name] = sus;
-					//bool nameRepeat = false;
-					//bool traitRepeat = false;
-
-
-
-					//for (std::map<std::string, Suspect>:: iterator iterat = suspects2.begin();
-					//	iterat != suspects2.end(); ++iterat)
-					//{
-					//	//delete all name blocks because covered above
-					//	if (iterat->second.GetName() == sus.GetName() && nameRepeat == false)
-					//	{
-					//		nameRepeat = true; 
-					//	}
-
-					//	else if (iterat->second.GetName() == sus.GetName() && nameRepeat == true)
-					//	{
-					//		i--;
-					//		suspects2.erase(name); 
-					//		break;
-					//	}
-					//	
-					//	if (iterat->second.GetSex() == sus.GetSex() &&
-					//		iterat->second.GetHeight() == sus.GetHeight() &&
-					//		iterat->second.GetHairColor() == sus.GetHairColor() &&
-					//		iterat->second.GetEyeColor() == sus.GetEyeColor() &&
-					//		traitRepeat == false) 
-					//	{
-					//		traitRepeat = true; 
-					//	}
-
-					//	else if (iterat->second.GetSex() == sus.GetSex() &&
-					//		iterat->second.GetHeight() == sus.GetHeight() &&
-					//		iterat->second.GetHairColor() == sus.GetHairColor() &&
-					//		iterat->second.GetEyeColor() == sus.GetEyeColor() &&
-					//		traitRepeat == true)
-					//	{
-					//		i--;
-					//		suspects2.erase(name);
-					//		break;
-					//	}
-					//	
-					//	if (iterat != suspects2.end() && next(iterat) == suspects2.end()); 
-					//	{
-					//		
-					//		suspect.SetSuspectMap(suspects2); 
-
-					//		//output it to csv using serialize function
-
-					//		//open output stream, file is argument
-					//		std::ofstream suspectFile(file);
-
-					//		for (std::map<std::string, Suspect>::iterator serialIt = suspects2.begin();
-					//			serialIt != suspects2.end(); ++serialIt)
-					//		{
-					//			serialIt->second.Serialize(suspectFile, traitDelimiter);
-					//		}
-					//		
-					//		suspectFile.close();
-
-					//	}
-
-					//}
-
-
 
 				}
 				std::cout << "\nNew suspect list generated!\n" << std::endl; 
