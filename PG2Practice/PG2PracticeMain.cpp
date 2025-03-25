@@ -52,53 +52,18 @@ int main()
 		
 			case 2:
 			{
+				//Add suspect from map
+				//output new suspect map to csv file using serialize function
 				suspect.AddSuspect(file, traitDelimiter); 
 				break;
 			}
 			case 3:
-				//create RemoveSuspect function
+			{
 
-				//Delete from map
-				//output it to csv using serialize function
+				//Delete suspect from map
+				//output new suspect map to csv file using serialize function
 
 				suspect.RemoveSuspect(file, traitDelimiter); 
-			{
-				//std::string name;
-				//std::cout << "\nWhat character would you like to remove from suspect list? ";
-				//getline(std::cin, name);
-				////Check map if name exists
-			
-				//std::map<std::string, Suspect> suspects2 = suspect.GetSuspectMap(); 
-
-				//std::map<std::string, Suspect>::iterator isFound = suspects2.find(name);
-
-				//if (isFound == suspects2.end())
-				//{
-				//	std::cout << "\n" << name << " is not on the suspect list!\n" << std::endl;
-				//}
-
-				//else
-				//{
-
-				//	suspects2.erase(name); 
-				//	std::cout << "\n" << name << " has been removed from the suspect list!\n" << std::endl;
-				//	suspect.SetSuspectMap(suspects2); 
-
-				////output updated list to csv, using seralize function
-
-				//	char delimiter = '*';
-				//	std::ofstream outFile(file);
-
-				//	for (std::map<std::string, Suspect>::iterator iter2 = suspects2.begin();
-				//			iter2 != suspects2.end(); ++iter2)
-				//		{
-				//
-				//			iter2->second.Serialize(outFile, delimiter);
-				//		}
-				//		outFile.close();
-				//}
-
-			
 				break;
 			}
 			
@@ -169,18 +134,20 @@ int main()
 
 						suspects2[name] = sus;
 
-						suspect.SetSuspectMap(suspects2);
 
-						//output new map to csv using serialize function
-						std::ofstream suspectFile(file);
+						////move serialize out of loop so it's only done once
+						//suspect.SetSuspectMap(suspects2);
 
-						for (std::map<std::string, Suspect>::iterator serialIt = suspects2.begin();
-								serialIt != suspects2.end(); ++serialIt)
-						{
-							serialIt->second.Serialize(suspectFile, traitDelimiter);
-						}
+						////output new map to csv using serialize function
+						//std::ofstream suspectFile(file);
 
-						suspectFile.close();
+						//for (std::map<std::string, Suspect>::iterator serialIt = suspects2.begin();
+						//		serialIt != suspects2.end(); ++serialIt)
+						//{
+						//	serialIt->second.Serialize(suspectFile, traitDelimiter);
+						//}
+
+						//suspectFile.close();
 
 
 					}
@@ -193,6 +160,21 @@ int main()
 					}
 
 				}
+				//move serialize here
+				suspect.SetSuspectMap(suspects2);
+
+				//output new map to csv using serialize function
+				std::ofstream suspectFile(file);
+
+				for (std::map<std::string, Suspect>::iterator serialIt = suspects2.begin();
+					serialIt != suspects2.end(); ++serialIt)
+				{
+					serialIt->second.Serialize(suspectFile, traitDelimiter);
+				}
+
+				suspectFile.close();
+
+
 				std::cout << "\nNew suspect list generated!\n" << std::endl; 
 				break;
 			}
