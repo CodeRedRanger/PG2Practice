@@ -45,7 +45,7 @@ void Suspect::PrintSuspects()
 
 	Suspect traits = iter->second;
 
-	std::cout << "-----SUSPECTS-----\n" << std::endl;
+	std::cout << "\n-----SUSPECTS-----\n" << std::endl;
 
 	while (iter != suspects2.end())
 	{
