@@ -47,6 +47,8 @@ public:
 
 	void PrintSuspects(); 
 
+	void AddSuspect(std::string file);
+
 
 	//Serialize/deserialize functions
 

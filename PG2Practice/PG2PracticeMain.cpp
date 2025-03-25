@@ -52,112 +52,115 @@ int main()
 		
 			case 2:
 			{
-				std::string name;
-				std::string sex;
-				std::string height;
-				std::string	hairColor;
-				std::string eyeColor;
-				std::cout << "\nWhat is your character's name? ";
-				getline(std::cin, name);
-				//Check map if name exists
-				
-				std::map<std::string, Suspect> suspects2 = suspect.GetSuspectMap(); 
-				std::map<std::string, Suspect>::iterator isFound = suspects2.find(name);
+				//Create Add suspect function 
+				suspect.AddSuspect(file); 
 
-				if (isFound != suspects2.end())
-				{
-					std::cout << "\nThat suspect name already exists!\n" << std::endl;
-				}
+				//std::string name;
+				//std::string sex;
+				//std::string height;
+				//std::string	hairColor;
+				//std::string eyeColor;
+				//std::cout << "\nWhat is your character's name? ";
+				//getline(std::cin, name);
+				////Check map if name exists
+				//
+				//std::map<std::string, Suspect> suspects2 = suspect.GetSuspectMap(); 
+				//std::map<std::string, Suspect>::iterator isFound = suspects2.find(name);
 
-				else
-				{
-					Suspect sus; 
-					//Add to map if name doesn't exist
-					//auto isInserted = suspects.insert(std::make_pair(name, std::vector<std::string>{"", "", "", ""}));
-					//suspects[name] = { "","","",""};
-					auto isInserted = suspects2.insert(std::make_pair(name, sus));
-					
-					sus.SetName(name); 
-					suspects2[name] = sus;
-					suspect.SetSuspectMap(suspects2); 
+				//if (isFound != suspects2.end())
+				//{
+				//	std::cout << "\nThat suspect name already exists!\n" << std::endl;
+				//}
 
-					//Add getline below. Can randomly generate height, hair and eye color; need enum of each trait
-					std::string sexStr;
-					std::string sex; 
-					
-					std::cout << "\nWhat is your character's sex? (Type 1 for male, 2 for female.) ";
-					getline(std::cin, sexStr); 
-					
-					if (sexStr == "1" || sexStr == "2")
-					{
-						sexStr == "1" ? sex = "Male" : sex = "Female";
+				//else
+				//{
+				//	Suspect sus; 
+				//	//Add to map if name doesn't exist
+				//	//auto isInserted = suspects.insert(std::make_pair(name, std::vector<std::string>{"", "", "", ""}));
+				//	//suspects[name] = { "","","",""};
+				//	auto isInserted = suspects2.insert(std::make_pair(name, sus));
+				//	
+				//	sus.SetName(name); 
+				//	suspects2[name] = sus;
+				//	suspect.SetSuspectMap(suspects2); 
 
-						//suspects[name] = { sex, "", "", "" }; 
-						sus.SetSex(sex); 
+				//	//Add getline below. Can randomly generate height, hair and eye color; need enum of each trait
+				//	std::string sexStr;
+				//	std::string sex; 
+				//	
+				//	std::cout << "\nWhat is your character's sex? (Type 1 for male, 2 for female.) ";
+				//	getline(std::cin, sexStr); 
+				//	
+				//	if (sexStr == "1" || sexStr == "2")
+				//	{
+				//		sexStr == "1" ? sex = "Male" : sex = "Female";
 
-						//std::cout << "What is your character's height? ";
-						height = sus.GetHEIGHTS().at(rand() % sus.GetHEIGHTS().size());
-						//suspects[name] = { sex, height, "", "" };
-						sus.SetHeight(height);
-						
-						//std::cout << "What is your character's hair color? ";
-						hairColor = sus.GetHAIRCOLORS().at(rand() % sus.GetHAIRCOLORS().size());
-						//suspects[name] = { sex, height, hairColor, "" };
-						sus.SetHairColor(hairColor);
-						
-						//std::cout << "What is your character's eye color? ";
-						eyeColor = sus.GetEYECOLORS().at(rand() % sus.GetEYECOLORS().size());
-						//suspects[name] = { sex, height, hairColor, eyeColor };
-						sus.SetEyeColor(eyeColor);
-						
-						suspects2[name] = sus;
-						suspect.SetSuspectMap(suspects2); 
+				//		//suspects[name] = { sex, "", "", "" }; 
+				//		sus.SetSex(sex); 
 
-						std::cout << "\n" << name << " has been added to the suspect list!\n" << std::endl; 
+				//		//std::cout << "What is your character's height? ";
+				//		height = sus.GetHEIGHTS().at(rand() % sus.GetHEIGHTS().size());
+				//		//suspects[name] = { sex, height, "", "" };
+				//		sus.SetHeight(height);
+				//		
+				//		//std::cout << "What is your character's hair color? ";
+				//		hairColor = sus.GetHAIRCOLORS().at(rand() % sus.GetHAIRCOLORS().size());
+				//		//suspects[name] = { sex, height, hairColor, "" };
+				//		sus.SetHairColor(hairColor);
+				//		
+				//		//std::cout << "What is your character's eye color? ";
+				//		eyeColor = sus.GetEYECOLORS().at(rand() % sus.GetEYECOLORS().size());
+				//		//suspects[name] = { sex, height, hairColor, eyeColor };
+				//		sus.SetEyeColor(eyeColor);
+				//		
+				//		suspects2[name] = sus;
+				//		suspect.SetSuspectMap(suspects2); 
 
-						for (std::map<std::string, Suspect>::iterator iter3 = suspects2.begin();
-							iter3 != suspects2.end(); ++iter3)
-						{
-							if (sus.GetName() != iter3->second.GetName() && sus.GetSex() == iter3->second.GetSex()
-								&& sus.GetHeight() == iter3->second.GetHeight()
-								&& sus.GetHairColor() == iter3->second.GetHairColor()
-								&& sus.GetEyeColor() == iter3->second.GetEyeColor())
-							{
-								std::cout << "\n" << iter3->second.GetName() << " has all the same characteristics as " <<
-									name << "!\n"; 
-								std::cout << "It is recommended that you remove one of these characters from the suspect list.\n"; 
-								break; 
-								//OR take out instead of recommending taking out; go back and regenerate characteristics again; 
-								//use a while repeatSuspsect true around generated height, hair and eye color above
-								//use an iterator inside while loop that increases by 1 and once it reaches 50,
-								//calls break in case a unique character can't be formed,
-								//gives error message to user (could not generate unique
-								// suspect. All combinations of traits already exist.), and removes character from map.
-							}
-						}
+				//		std::cout << "\n" << name << " has been added to the suspect list!\n" << std::endl; 
+
+				//		for (std::map<std::string, Suspect>::iterator iter3 = suspects2.begin();
+				//			iter3 != suspects2.end(); ++iter3)
+				//		{
+				//			if (sus.GetName() != iter3->second.GetName() && sus.GetSex() == iter3->second.GetSex()
+				//				&& sus.GetHeight() == iter3->second.GetHeight()
+				//				&& sus.GetHairColor() == iter3->second.GetHairColor()
+				//				&& sus.GetEyeColor() == iter3->second.GetEyeColor())
+				//			{
+				//				std::cout << "\n" << iter3->second.GetName() << " has all the same characteristics as " <<
+				//					name << "!\n"; 
+				//				std::cout << "It is recommended that you remove one of these characters from the suspect list.\n"; 
+				//				break; 
+				//				//OR take out instead of recommending taking out; go back and regenerate characteristics again; 
+				//				//use a while repeatSuspsect true around generated height, hair and eye color above
+				//				//use an iterator inside while loop that increases by 1 and once it reaches 50,
+				//				//calls break in case a unique character can't be formed,
+				//				//gives error message to user (could not generate unique
+				//				// suspect. All combinations of traits already exist.), and removes character from map.
+				//			}
+				//		}
 
 
-						//output it to csv, using seralize function
+				//		//output it to csv, using seralize function
 
-						char delimiter = '*';
-						std::ofstream outFile(file);
+				//		char delimiter = '*';
+				//		std::ofstream outFile(file);
 
-						for (std::map<std::string, Suspect>::iterator iter2 = suspects2.begin();
-							iter2 != suspects2.end(); ++iter2)
-						{
-							iter2->second.Serialize(outFile, delimiter);
-						}
-						outFile.close();
-					}
+				//		for (std::map<std::string, Suspect>::iterator iter2 = suspects2.begin();
+				//			iter2 != suspects2.end(); ++iter2)
+				//		{
+				//			iter2->second.Serialize(outFile, delimiter);
+				//		}
+				//		outFile.close();
+				//	}
 
-					else
-					{
-						std::cout << "\nInvalid input\n" << std::endl; 
-						suspects2.erase(name); 
-						suspect.SetSuspectMap(suspects2); 
-					}
+				//	else
+				//	{
+				//		std::cout << "\nInvalid input\n" << std::endl; 
+				//		suspects2.erase(name); 
+				//		suspect.SetSuspectMap(suspects2); 
+				//	}
 
-				}
+				//}
 				break;
 			}
 			case 3:
