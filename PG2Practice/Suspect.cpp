@@ -84,7 +84,7 @@ void Suspect::PrintSuspects()
 
 }
 
-void Suspect::AddSuspect(std::string file, char traitDelimiter)
+void Suspect::AddSuspect(const std::string& file, const char traitDelimiter)
 {
 	std::string name;
 	std::string sex;
@@ -188,7 +188,7 @@ void Suspect::AddSuspect(std::string file, char traitDelimiter)
 
 }
 
-void Suspect::RemoveSuspect(std::string file, char traitDelimiter)
+void Suspect::RemoveSuspect(const std::string& file, const char traitDelimiter)
 {
 	std::string name;
 	std::cout << "\nWhat character would you like to remove from suspect list? ";
@@ -224,6 +224,102 @@ void Suspect::RemoveSuspect(std::string file, char traitDelimiter)
 		}
 		outFile.close();
 	}
+}
+
+void Suspect::NewSuspectList(const std::string& file, const char traitDelimiter)
+{
+
+	//Delete map
+	std::map<std::string, Suspect> suspects2;
+	this->SetSuspectMap(suspects2);
+
+	Suspect sus;
+
+	//create 6 new suspects
+	for (int i = 0; i < 6; ++i)
+	{
+		int randNameInt = rand() % 26;
+		std::string name = this->GetNAMES().at(randNameInt);
+
+		std::string sex;  
+
+		//In NAMES vector of strings, all even names are male, odd names are female
+		if (randNameInt % 2 == 0)
+		{
+			sex = "Male";
+		}
+
+		else sex = "Female";
+
+		int randHeightInt = rand() % 2;
+		std::string height = this->GetHEIGHTS().at(randHeightInt);
+
+		int randHairColorInt = rand() % 3;
+		std::string hairColor = this->GetHAIRCOLORS().at(randHairColorInt);
+
+		int randEyeColorInt = rand() % 3;
+		std::string eyeColor = this->GetEYECOLORS().at(randEyeColorInt);
+
+		sus.SetName(name);
+		sus.SetSex(sex);
+		sus.SetHeight(height);
+		sus.SetHairColor(hairColor);
+		sus.SetEyeColor(eyeColor);
+
+		//Go through current suspect map and make sure there is not another suspect
+		//that has all the same characteristics as the suspect generated in this loop
+		//even if the names are different
+		bool allTraitsSame = false;
+
+		for (std::map<std::string, Suspect>::iterator traitChecker = suspects2.begin();
+			traitChecker != suspects2.end(); ++traitChecker)
+		{
+			if (traitChecker->second.GetSex() == sus.GetSex() &&
+				traitChecker->second.GetHeight() == sus.GetHeight() &&
+				traitChecker->second.GetHairColor() == sus.GetHairColor() &&
+				traitChecker->second.GetEyeColor() == sus.GetEyeColor())
+			{
+				allTraitsSame = true;
+				break;
+			}
+		}
+
+
+		std::map<std::string, Suspect>::iterator isFound = suspects2.find(name);
+
+		//save suspect to map if names are different and all traits are not the same
+		if (isFound == suspects2.end() && allTraitsSame == false)
+		{
+
+			suspects2[name] = sus;
+
+		}
+		else
+		{
+			//if name is duplicate of names in map or character has all the same traits as another
+			//suspect in the map, then don't add suspect to map and remain at same point in for
+			//loop that creates suspects so we still get 6 suspects in the end. 
+			i--;
+		}
+
+	}
+
+	this->SetSuspectMap(suspects2);
+
+	//output new map to csv using serialize function
+	std::ofstream suspectFile(file);
+
+	for (std::map<std::string, Suspect>::iterator serialIt = suspects2.begin();
+		serialIt != suspects2.end(); ++serialIt)
+	{
+		serialIt->second.Serialize(suspectFile, traitDelimiter);
+	}
+
+	suspectFile.close();
+
+
+	std::cout << "\nNew suspect list generated!\n" << std::endl;
+
 }
 
 

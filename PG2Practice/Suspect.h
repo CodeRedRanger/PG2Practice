@@ -47,9 +47,11 @@ public:
 
 	void PrintSuspects(); 
 
-	void AddSuspect(std::string file, char traitDelimiter);
+	void AddSuspect(const std::string& file, const char traitDelimiter);
 
-	void RemoveSuspect(std::string file, char traitDelimiter); 
+	void RemoveSuspect(const std::string& file, const char traitDelimiter); 
+
+	void NewSuspectList(const std::string& file, const char traitDelimiter); 
 
 
 	//Serialize/deserialize functions

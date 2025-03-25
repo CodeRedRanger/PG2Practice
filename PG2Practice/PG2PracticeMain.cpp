@@ -69,113 +69,100 @@ int main()
 			
 			case 4:
 			{
+				
 				//Delete map
-				std::map<std::string, Suspect> suspects2; 
-				suspect.SetSuspectMap(suspects2); 
+				suspect.NewSuspectList(file, traitDelimiter); 
+
+				//std::map<std::string, Suspect> suspects2; 
+				//suspect.SetSuspectMap(suspects2); 
 
 
-				Suspect sus;
+				//Suspect sus;
 
-				//create 6 new suspects
-				for (int i = 0; i < 6; ++i)
-				{
-					int randNameInt = rand() % 26; 
-					std::string name = suspect.GetNAMES().at(randNameInt); 
+				////create 6 new suspects
+				//for (int i = 0; i < 6; ++i)
+				//{
+				//	int randNameInt = rand() % 26; 
+				//	std::string name = suspect.GetNAMES().at(randNameInt); 
 
-					//int randSexInt = rand() % 2;
-					std::string sex;  // = suspect.GetSEXES().at(randSexInt);
+				//	//int randSexInt = rand() % 2;
+				//	std::string sex;  // = suspect.GetSEXES().at(randSexInt);
 
-					if (randNameInt % 2 == 0)
-					{
-						sex = "Male";
-					}
+				//	if (randNameInt % 2 == 0)
+				//	{
+				//		sex = "Male";
+				//	}
 
-					else sex = "Female"; 
+				//	else sex = "Female"; 
 
-					int randHeightInt = rand() % 2;
-					std::string height = suspect.GetHEIGHTS().at(randHeightInt);
+				//	int randHeightInt = rand() % 2;
+				//	std::string height = suspect.GetHEIGHTS().at(randHeightInt);
 
-					int randHairColorInt = rand() % 3;
-					std::string hairColor = suspect.GetHAIRCOLORS().at(randHairColorInt);
+				//	int randHairColorInt = rand() % 3;
+				//	std::string hairColor = suspect.GetHAIRCOLORS().at(randHairColorInt);
 
-					int randEyeColorInt = rand() % 3; 
-					std::string eyeColor = suspect.GetEYECOLORS().at(randEyeColorInt);
+				//	int randEyeColorInt = rand() % 3; 
+				//	std::string eyeColor = suspect.GetEYECOLORS().at(randEyeColorInt);
 
-					sus.SetName(name); 
-					sus.SetSex(sex);
-					sus.SetHeight(height);
-					sus.SetHairColor(hairColor);
-					sus.SetEyeColor(eyeColor); 
+				//	sus.SetName(name); 
+				//	sus.SetSex(sex);
+				//	sus.SetHeight(height);
+				//	sus.SetHairColor(hairColor);
+				//	sus.SetEyeColor(eyeColor); 
 
-					//Go through current suspect map and make sure there is not another suspect
-					//that has all the same characteristics as the suspect generated in this loop
-					//even if the names are different
-					bool allTraitsSame = false;
+				//	//Go through current suspect map and make sure there is not another suspect
+				//	//that has all the same characteristics as the suspect generated in this loop
+				//	//even if the names are different
+				//	bool allTraitsSame = false;
 
-					for (std::map<std::string, Suspect>::iterator traitChecker = suspects2.begin();
-						traitChecker != suspects2.end(); ++ traitChecker)
-					{
-						if (traitChecker->second.GetSex() == sus.GetSex() &&
-							traitChecker->second.GetHeight() == sus.GetHeight() &&
-							traitChecker->second.GetHairColor() == sus.GetHairColor() &&
-							traitChecker->second.GetEyeColor() == sus.GetEyeColor())
-						{
-							allTraitsSame = true;
-							break; 
-						}
-					}
+				//	for (std::map<std::string, Suspect>::iterator traitChecker = suspects2.begin();
+				//		traitChecker != suspects2.end(); ++ traitChecker)
+				//	{
+				//		if (traitChecker->second.GetSex() == sus.GetSex() &&
+				//			traitChecker->second.GetHeight() == sus.GetHeight() &&
+				//			traitChecker->second.GetHairColor() == sus.GetHairColor() &&
+				//			traitChecker->second.GetEyeColor() == sus.GetEyeColor())
+				//		{
+				//			allTraitsSame = true;
+				//			break; 
+				//		}
+				//	}
 
-					
-					std::map<std::string, Suspect>::iterator isFound = suspects2.find(name); 
+				//	
+				//	std::map<std::string, Suspect>::iterator isFound = suspects2.find(name); 
 
-					//save suspect to map if names are different and all traits are not the same
-					if (isFound == suspects2.end() && allTraitsSame == false)
-					{
+				//	//save suspect to map if names are different and all traits are not the same
+				//	if (isFound == suspects2.end() && allTraitsSame == false)
+				//	{
 
-						suspects2[name] = sus;
+				//		suspects2[name] = sus;
 
+				//	}
+				//	else
+				//	{
+				//		//if name is duplicate of names in map or character has all the same traits as another
+				//		//suspect in the map, then don't add suspect to map and remain at same point in for
+				//		//loop that creates suspects so we still get 6 suspects in the end. 
+				//		i--; 
+				//	}
 
-						////move serialize out of loop so it's only done once
-						//suspect.SetSuspectMap(suspects2);
+				//}
+				//
+				//suspect.SetSuspectMap(suspects2);
 
-						////output new map to csv using serialize function
-						//std::ofstream suspectFile(file);
+				////output new map to csv using serialize function
+				//std::ofstream suspectFile(file);
 
-						//for (std::map<std::string, Suspect>::iterator serialIt = suspects2.begin();
-						//		serialIt != suspects2.end(); ++serialIt)
-						//{
-						//	serialIt->second.Serialize(suspectFile, traitDelimiter);
-						//}
+				//for (std::map<std::string, Suspect>::iterator serialIt = suspects2.begin();
+				//	serialIt != suspects2.end(); ++serialIt)
+				//{
+				//	serialIt->second.Serialize(suspectFile, traitDelimiter);
+				//}
 
-						//suspectFile.close();
-
-
-					}
-					else
-					{
-						//if name is duplicate of names in map or character has all the same traits as another
-						//suspect in the map, then don't add suspect to map and remain at same point in for
-						//loop that creates suspects so we still get 6 suspects in the end. 
-						i--; 
-					}
-
-				}
-				//move serialize here
-				suspect.SetSuspectMap(suspects2);
-
-				//output new map to csv using serialize function
-				std::ofstream suspectFile(file);
-
-				for (std::map<std::string, Suspect>::iterator serialIt = suspects2.begin();
-					serialIt != suspects2.end(); ++serialIt)
-				{
-					serialIt->second.Serialize(suspectFile, traitDelimiter);
-				}
-
-				suspectFile.close();
+				//suspectFile.close();
 
 
-				std::cout << "\nNew suspect list generated!\n" << std::endl; 
+				//std::cout << "\nNew suspect list generated!\n" << std::endl; 
 				break;
 			}
 
