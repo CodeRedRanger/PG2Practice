@@ -47,7 +47,9 @@ public:
 
 	void PrintSuspects(); 
 
-	void AddSuspect(std::string file);
+	void AddSuspect(std::string file, char traitDelimiter);
+
+	void RemoveSuspect(std::string file, char traitDelimiter); 
 
 
 	//Serialize/deserialize functions

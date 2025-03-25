@@ -84,7 +84,7 @@ void Suspect::PrintSuspects()
 
 }
 
-void Suspect::AddSuspect(std::string file)
+void Suspect::AddSuspect(std::string file, char traitDelimiter)
 {
 	std::string name;
 	std::string sex;
@@ -151,9 +151,9 @@ void Suspect::AddSuspect(std::string file)
 					&& sus.GetHairColor() == iter3->second.GetHairColor()
 					&& sus.GetEyeColor() == iter3->second.GetEyeColor())
 				{
-					std::cout << "\n" << iter3->second.GetName() << " has all the same characteristics as " <<
+					std::cout << iter3->second.GetName() << " has all the same characteristics as " <<
 						name << "!\n";
-					std::cout << "It is recommended that you remove one of these characters from the suspect list.\n";
+					std::cout << "It is recommended that you remove one of these characters from the suspect list.\n" << std::endl;
 					break;
 					//OR take out instead of recommending taking out; go back and regenerate characteristics again; 
 					//use a while repeatSuspsect true around generated height, hair and eye color above
@@ -166,14 +166,12 @@ void Suspect::AddSuspect(std::string file)
 
 
 			//output it to csv, using seralize function
-
-			char delimiter = '*';
 			std::ofstream outFile(file);
 
 			for (std::map<std::string, Suspect>::iterator iter2 = suspects2.begin();
 				iter2 != suspects2.end(); ++iter2)
 			{
-				iter2->second.Serialize(outFile, delimiter);
+				iter2->second.Serialize(outFile, traitDelimiter);
 			}
 			outFile.close();
 		}
@@ -188,6 +186,44 @@ void Suspect::AddSuspect(std::string file)
 	}
 
 
+}
+
+void Suspect::RemoveSuspect(std::string file, char traitDelimiter)
+{
+	std::string name;
+	std::cout << "\nWhat character would you like to remove from suspect list? ";
+	getline(std::cin, name);
+
+	//Check map if name exists
+	std::map<std::string, Suspect> suspects2 = this->GetSuspectMap();
+
+	std::map<std::string, Suspect>::iterator isFound = suspects2.find(name);
+
+	if (isFound == suspects2.end())
+	{
+		std::cout << "\n" << name << " is not on the suspect list!\n" << std::endl;
+	}
+
+	else
+	{
+
+		suspects2.erase(name);
+		std::cout << "\n" << name << " has been removed from the suspect list!\n" << std::endl;
+		this->SetSuspectMap(suspects2);
+
+		//output updated list to csv, using seralize function
+
+		//char delimiter = '*';
+		std::ofstream outFile(file);
+
+		for (std::map<std::string, Suspect>::iterator iter2 = suspects2.begin();
+			iter2 != suspects2.end(); ++iter2)
+		{
+
+			iter2->second.Serialize(outFile, traitDelimiter);
+		}
+		outFile.close();
+	}
 }
 
 
