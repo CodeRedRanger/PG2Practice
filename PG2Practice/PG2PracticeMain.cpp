@@ -16,6 +16,7 @@
 #include <sstream> //for stringstream
 #include <algorithm> //for max()
 #include "Suspect.h"
+#include "HighScore.h"
 
 int main()
 {
@@ -24,6 +25,8 @@ int main()
 
 	std::string file = "Suspects.csv";
 	char traitDelimiter = '*';
+	std::string HSFile = "HighScores.csv";
+	char scoreDelimiter = '['; 
 
 	Suspect suspect; 
 
@@ -39,7 +42,8 @@ int main()
 	std::cout << "3. Remove a suspect from the list.\n"; 
 	std::cout << "4. Generate new list of suspects.\n";
 	std::cout << "5. Play \"Guess Who!?\"\n"; 
-	std::cout << "6. Quit.\n"; 
+	std::cout << "6. See High Scores\n"; 
+	std::cout << "7. Quit.\n"; 
 	//Incorporate high score system for number of guesses, and add choice to view high scores.
 
 	std::string choiceStr; 
@@ -88,6 +92,14 @@ int main()
 			}
 
 			case 6:
+			{
+				//Load high score list
+				HighScore hs;
+				hs.LoadHighScores(HSFile, scoreDelimiter);
+				break;
+			}
+
+			case 7:
 				gameOver = true; 
 				break; 
 

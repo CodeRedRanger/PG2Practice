@@ -143,10 +143,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="HighScore.cpp" />
     <ClCompile Include="PG2PracticeMain.cpp" />
     <ClCompile Include="Suspect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="HighScore.h" />
     <ClInclude Include="Suspect.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

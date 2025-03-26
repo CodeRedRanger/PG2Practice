@@ -514,6 +514,7 @@ void Suspect::PlayGame()
 }
 
 
+
 void Suspect::Serialize(std::ofstream& outFile, char delimiter)
 {
 	if (outFile.is_open())
