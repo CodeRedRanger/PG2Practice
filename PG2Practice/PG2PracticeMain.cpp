@@ -1,3 +1,12 @@
+//Additional functionality
+//1. Add display high scores to menu and add high scores when user gets them; create high score csv file
+//2. Create abstract class Person, with derived classes male and female
+//each derived class overrides draw function of person class and draws face of character on screen
+//face will be a circle with eyes and hair of the correct color; females with hair will have long hair, men short hair
+//3. use friend keyword so that person class can use private variables in Suspect. 
+//4. create vector of person unique pointers to all the people (male and females) on suspect list, with their associated traits for drawing
+
+
 #include <iostream>
 #include <memory>
 #include <map> // for map
@@ -77,157 +86,6 @@ int main()
 			case 5:
 			{
 				suspect.PlayGame(); 
-
-				////Select suspect key from map
-
-				//std::map<std::string, Suspect> suspects2 = suspect.GetSuspectMap(); 
-
-				//int randomNum = rand() % suspects2.size();
-
-				//std::map<std::string, Suspect>::iterator iterRand = suspects2.begin();
-
-				//std::advance(iterRand, randomNum);
-
-				//Suspect sus2 = iterRand->second;
-
-				//int numberOfGuesses = 1; 
-				//int numberOfClues = 0; 
-				//bool continuePlay = true; 
-				//int score = 10; 
-				//while (continuePlay)
-				//{
-				//	std::cout << "Make a choice from the list below.\n";
-				//	std::cout << "1. Guess who committed the crime!\n";
-				//	std::cout << "2. Learn more about the suspect.\n";
-				//	std::cout << "3. Print the suspect list.\n";
-				//	std::cout << "4. Reveal the criminal!\n";
-
-				//	std::string choiceStr;
-
-				//	getline(std::cin, choiceStr);
-
-				//	int choice = stoi(choiceStr);
-
-				//	switch (choice)
-				//	{
-				//	case 1:
-				//	{
-				//		std::string suspectGuess;
-				//		std::cout << "Who do you think committed the crime? "; 
-				//		getline(std::cin, suspectGuess); 
-
-				//		if (suspectGuess == sus2.GetName())
-				//		{
-				//			std::cout << "That's right!\n";
-				//			std::cout << "The culprit is " << sus2.GetName() << "!\n";
-				//			std::cout << "It took you " << numberOfGuesses; 
-				//				
-				//			if (numberOfGuesses == 1)
-				//			{
-				//				std::cout << " try to guess the culprit!\n";
-				//			}
-
-				//			else
-				//			{
-				//				std::cout << " tries to guess the culprit!\n";
-				//			}
-
-				//			std::cout << "Number of clues needed to guess culprit: " << numberOfClues << "\n"; 
-				//			std::cout << "Total score [11 - (number of guesses + number of clues)] : " << std::max(score, 0) << "\n"
-				//				<< std::endl; 
-
-				//			continuePlay = false;
-				//		}
-				//		else
-				//		{
-				//			std::cout << "I'm sorry, that's wrong.\n";
-				//			std::cout << "Total guesses so far: " << numberOfGuesses << "\n" << std::endl;
-				//			numberOfGuesses++;
-				//			score--; 
-				//		}
-				//		break;
-				//	}
-				//	case 2:
-				//	{    
-
-				//		std::cout << "What do you want to know about the suspect?\n";
-				//		std::cout << "1. Sex\n";
-				//		std::cout << "2. Height\n";
-				//		std::cout << "3. Hair Color\n";
-				//		std::cout << "4. Eye Color\n"; 
-
-				//		std::string traitChoiceStr; 
-				//		getline(std::cin, traitChoiceStr);
-
-				//		int traitChoice = stoi(traitChoiceStr); 
-
-				//		//If choose 2: What do you want to know? Sex, Height, Hair Color, Eye Color (1-4); based on choice;
-				//		//print out value for that suspect key at that location in vector of values
-				//		switch (traitChoice)
-				//		{
-				//		case 1:
-				//		{
-				//			std::cout << "The suspect's sex: " << sus2.GetSex() << "\n" << std::endl; 
-				//			numberOfClues++; 
-				//			score--; 
-				//			break;
-				//		}
-
-				//		case 2:
-				//		{
-				//			std::cout << "The suspect's height: " << sus2.GetHeight() << "\n" << std::endl; 
-				//			numberOfClues++;
-				//			score--;
-				//			break; 
-				//		}
-
-				//		case 3:
-				//		{
-				//			std::cout << "The suspect's hair color: " << sus2.GetHairColor() << "\n" << std::endl;
-				//			numberOfClues++;
-				//			score--;
-				//			break;
-				//		}
-
-				//		case 4:
-				//		{
-				//			std::cout << "The suspect's eye color: " << sus2.GetEyeColor() << "\n" << std::endl;
-				//			numberOfClues++;
-				//			score--;
-				//			break; 
-				//		}
-
-				//		default:
-				//		{
-				//			std::cout << "Invalid choice!\n" << std::endl; 
-				//			break; 
-				//		}
-
-				//		}
-
-				//		
-				//		break;
-				//	}
-				//	case 3:
-				//	{
-				//		suspect.PrintSuspects(); 
-				//		break;
-				//	}
-				//	case 4:
-				//	{
-				//		std::cout << "The culprit is " << sus2.GetName() << "!\n" << std::endl;
-				//		continuePlay = false;
-				//		break;
-				//	}
-				//	default:
-				//	{
-				//		std::cout << "Invalid choice!\n" << std::endl;
-				//		break;
-				//	}
-				//	}
-				//}
-				//
-
 				break;
 			}
 

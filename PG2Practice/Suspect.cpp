@@ -2,8 +2,21 @@
 
 std::map<std::string, Suspect> Suspect::LoadSuspects(std::string file, char traitDelimiter)
 {
+	
 
 	std::ifstream suspectFile(file);
+	
+
+	if (suspectFile.is_open())
+	{
+		//file is open
+	}
+
+	else
+	{
+		std::cout << "File is not open.\n" << std::endl; 
+	}
+	
 	std::string suspectNew;
 
 	//vector of suspects
