@@ -27,6 +27,14 @@ void HighScore::Deserialize(std::string scoreStr, char scoreDelimiter)
 
 }
 
+void HighScore::Serialize(std::ofstream& outFile, char scoreDelimiter, std::vector<HighScore>& scores)
+{
+	for (HighScore score : scores)
+	{
+		outFile << score.GetName() << scoreDelimiter << score.GetScore() << "\n";
+	}
+}
+
 void HighScore::LoadHighScores(const std::string file, const char scoreDelimiter)
 {
 
@@ -81,62 +89,50 @@ void HighScore::PrintHighScores()
 }
 
 
-//void HighScore::AddHighScore(std::string name, int score)
-void HighScore::AddHighScore(HighScore& newScore)
+void HighScore::AddHighScore(HighScore& newScore, std::string HSFile, char scoreDelimiter)
 {
 	std::vector<HighScore> scores = this->GetHighScores(); 
 
 	if (newScore.GetScore() > scores.at(9).GetScore())
 	{
 
-		//scores.at(9).SetName(name);
-		//scores.at(9).SetScore(score); 
-
-		//int temp; 
-		//std::string tempName; 
 		for (std::vector<HighScore>::iterator iter = scores.begin();
 			iter != scores.end(); ++iter)
 		{	
-
-		/*	if (score >= iter->GetScore())
-			{
-				temp = iter->GetScore();
-				tempName = iter->GetName(); 
-				iter->SetScore(score); 
-				iter->SetName(name); 
-				score = temp; 
-				name = tempName; 
-			}*/
 
 			if (newScore.GetScore() > iter->GetScore())
 			{
 				scores.insert(iter, newScore);
 				scores.erase(scores.end() - 1);
 				this->SetHighScores(scores);
-				//HighScore::SaveHighScores(highScoreFile, highScores); Serialize
+				this->SaveHighScores(HSFile, this->GetHighScores(), scoreDelimiter);
 				this->PrintHighScores();
 				break;
 			}
 
-
 		}
 
-
-
-		//this->SetHighScores(scores); 
-		//this->PrintHighScores(); 
 
 	}
 
 }
-/*
- 
-			  {
-				  highScores.insert(i, newHighScore);
-				  highScores.erase(highScores.end() - 1);
-				  HighScore::SaveHighScores(highScoreFile, highScores);
-				  HighScore::ShowHighScores(highScores);
-				  break;
-			  }
 
-*/
+void HighScore::SaveHighScores(std::string file, std::vector<HighScore> scores, char scoreDelimiter)
+{
+	std::ofstream outFile(file);
+
+	if (outFile.is_open())
+	{
+		//file open
+	}
+	else
+	{
+		std::cout << file << " was not opened!\n" << std::endl; 
+	}
+
+	this->Serialize(outFile, scoreDelimiter, scores); 
+
+
+	outFile.close(); 
+
+}

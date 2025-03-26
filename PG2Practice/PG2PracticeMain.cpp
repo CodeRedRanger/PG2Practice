@@ -96,17 +96,12 @@ int main()
 			case 5:
 			{
 				suspect.PlayGame(); 
-				HighScore newScore;
-				int score = suspect.GetScore();
-
-				newScore.SetName(name);
-				newScore.SetScore(score); 
-
 				
-				//hs.AddHighScore(name, score); 
-				 
-				//hs.AddHighScore(name);
-				hs.AddHighScore(newScore);
+				HighScore newScore;
+				newScore.SetName(name);
+				newScore.SetScore(suspect.GetScore());
+
+				hs.AddHighScore(newScore, HSFile, scoreDelimiter);
 				break;
 			}
 

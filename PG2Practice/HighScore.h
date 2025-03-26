@@ -32,14 +32,15 @@ public:
 
 	void Deserialize(std::string scoreStr, char scoreDelimiter); 
 
-	//serialize function here
+	void Serialize(std::ofstream& outFile, char scoreDelimiter, std::vector<HighScore>& scores); 
 
 	void LoadHighScores(const std::string file, const char scoreDelimiter);
 
 	void PrintHighScores();
 
-	//void AddHighScore(std::string name, int score);
-	void AddHighScore(HighScore& newScore);
+	void AddHighScore(HighScore& newScore, std::string HSFile, char scoreDelimiter);
+
+	void SaveHighScores(std::string file, std::vector<HighScore> scores, char scoreDelimiter); 
 
 
 	//Getters and setters
