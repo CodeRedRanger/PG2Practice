@@ -8,5 +8,4 @@ Gina[4
 Harry[4
 Ian[4
 Jenny[3
-Kate[3
 

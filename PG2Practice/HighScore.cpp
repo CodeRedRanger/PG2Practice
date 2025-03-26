@@ -29,7 +29,6 @@ void HighScore::Deserialize(std::string scoreStr, char scoreDelimiter)
 
 void HighScore::LoadHighScores(const std::string file, const char scoreDelimiter)
 {
-	std::cout << "\n-----HIGH SCORES-----\n"; 
 
 	std::ifstream HighScores(file);
 
@@ -66,6 +65,8 @@ void HighScore::PrintHighScores()
 {
 	std::vector<HighScore> scores = this->GetHighScores(); 
 
+	std::cout << "\n-----HIGH SCORES-----\n";
+
 	for (HighScore hs : scores)
 	{
 		std::string name = hs.GetName();
@@ -80,8 +81,38 @@ void HighScore::PrintHighScores()
 }
 
 
-
-void HighScore::AddHighScore(int score)
+void HighScore::AddHighScore(std::string name, int score)
 {
+	std::vector<HighScore> scores = this->GetHighScores(); 
+
+	if (score > scores.at(9).GetScore())
+	{
+
+		//scores.at(9).SetName(name);
+		//scores.at(9).SetScore(score); 
+
+		int temp; 
+		std::string tempName; 
+		for (std::vector<HighScore>::iterator iter = scores.begin();
+			iter != scores.end(); ++iter)
+		{	
+
+			if (score >= iter->GetScore())
+			{
+				temp = iter->GetScore();
+				tempName = iter->GetName(); 
+				iter->SetScore(score); 
+				iter->SetName(name); 
+				score = temp; 
+				name = tempName; 
+			}
+		}
+
+
+
+		this->SetHighScores(scores); 
+		this->PrintHighScores(); 
+
+	}
 
 }

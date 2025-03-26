@@ -38,7 +38,7 @@ public:
 
 	void PrintHighScores();
 
-	void AddHighScore(int score);
+	void AddHighScore(std::string name, int score);
 
 
 	//Getters and setters

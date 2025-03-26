@@ -35,11 +35,17 @@ int main()
 
 	suspect.SetSuspectMap(suspect.LoadSuspects(file, traitDelimiter));
 
-	bool gameOver = false; 
+	std::cout << "Can you ..... Guess Who Did it??\n" << std::endl; 
+	std::string name;
+	std::cout << "What is your name? "; 
+	getline(std::cin, name); 
+	system("cls"); 
 
+
+	bool gameOver = false; 
 	while (gameOver == false)
 	{
-	std::cout << "Choose one of the following options.\n" << std::endl; 
+	std::cout << name << ", choose one of the following options.\n" << std::endl; 
 	std::cout << "1. Print out suspect list.\n"; 
 	std::cout << "2. Add suspect to list.\n";
 	std::cout << "3. Remove a suspect from the list.\n"; 
@@ -91,7 +97,7 @@ int main()
 			{
 				suspect.PlayGame(); 
 				int score = suspect.GetScore(); 
-				hs.AddHighScore(score); 
+				hs.AddHighScore(name, score); 
 				break;
 			}
 
