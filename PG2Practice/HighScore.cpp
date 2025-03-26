@@ -81,23 +81,24 @@ void HighScore::PrintHighScores()
 }
 
 
-void HighScore::AddHighScore(std::string name, int score)
+//void HighScore::AddHighScore(std::string name, int score)
+void HighScore::AddHighScore(HighScore& newScore)
 {
 	std::vector<HighScore> scores = this->GetHighScores(); 
 
-	if (score > scores.at(9).GetScore())
+	if (newScore.GetScore() > scores.at(9).GetScore())
 	{
 
 		//scores.at(9).SetName(name);
 		//scores.at(9).SetScore(score); 
 
-		int temp; 
-		std::string tempName; 
+		//int temp; 
+		//std::string tempName; 
 		for (std::vector<HighScore>::iterator iter = scores.begin();
 			iter != scores.end(); ++iter)
 		{	
 
-			if (score >= iter->GetScore())
+		/*	if (score >= iter->GetScore())
 			{
 				temp = iter->GetScore();
 				tempName = iter->GetName(); 
@@ -105,14 +106,37 @@ void HighScore::AddHighScore(std::string name, int score)
 				iter->SetName(name); 
 				score = temp; 
 				name = tempName; 
+			}*/
+
+			if (newScore.GetScore() > iter->GetScore())
+			{
+				scores.insert(iter, newScore);
+				scores.erase(scores.end() - 1);
+				this->SetHighScores(scores);
+				//HighScore::SaveHighScores(highScoreFile, highScores); Serialize
+				this->PrintHighScores();
+				break;
 			}
+
+
 		}
 
 
 
-		this->SetHighScores(scores); 
-		this->PrintHighScores(); 
+		//this->SetHighScores(scores); 
+		//this->PrintHighScores(); 
 
 	}
 
 }
+/*
+ 
+			  {
+				  highScores.insert(i, newHighScore);
+				  highScores.erase(highScores.end() - 1);
+				  HighScore::SaveHighScores(highScoreFile, highScores);
+				  HighScore::ShowHighScores(highScores);
+				  break;
+			  }
+
+*/
