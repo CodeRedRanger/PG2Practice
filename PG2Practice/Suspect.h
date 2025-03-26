@@ -17,6 +17,7 @@ private: //make private later
 	std::string m_height;
 	std::string m_hairColor; 
 	std::string m_eyeColor; 
+	int m_score; 
 
 	std::map <std::string, Suspect> m_suspects;
 
@@ -149,6 +150,16 @@ public:
 	const std::vector<std::string>& GetEYECOLORS()
 	{
 		return EYECOLORS;
+	}
+
+	const int GetScore()
+	{
+		return m_score;
+	}
+
+	void SetScore(const int newScore)
+	{
+		m_score = newScore;
 	}
 
 

@@ -423,6 +423,7 @@ void Suspect::PlayGame()
 					std::cout << "\nTotal score [11 - (number of guesses + number of clues)] : " << std::max(score, 0) << "\n"
 						<< std::endl;
 
+					this->SetScore(score); 
 					continuePlay = false;
 				}
 				else

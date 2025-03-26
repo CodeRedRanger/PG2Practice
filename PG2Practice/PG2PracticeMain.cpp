@@ -27,6 +27,9 @@ int main()
 	char traitDelimiter = '*';
 	std::string HSFile = "HighScores.csv";
 	char scoreDelimiter = '['; 
+	
+	HighScore hs; 
+	hs.LoadHighScores(HSFile, scoreDelimiter);
 
 	Suspect suspect; 
 
@@ -44,7 +47,6 @@ int main()
 	std::cout << "5. Play \"Guess Who!?\"\n"; 
 	std::cout << "6. See High Scores\n"; 
 	std::cout << "7. Quit.\n"; 
-	//Incorporate high score system for number of guesses, and add choice to view high scores.
 
 	std::string choiceStr; 
 	getline(std::cin, choiceStr); 
@@ -88,14 +90,15 @@ int main()
 			case 5:
 			{
 				suspect.PlayGame(); 
+				int score = suspect.GetScore(); 
+				hs.AddHighScore(score); 
 				break;
 			}
 
 			case 6:
 			{
 				//Load high score list
-				HighScore hs;
-				hs.LoadHighScores(HSFile, scoreDelimiter);
+				hs.PrintHighScores(); 
 				break;
 			}
 

@@ -36,20 +36,23 @@ public:
 
 	void LoadHighScores(const std::string file, const char scoreDelimiter);
 
+	void PrintHighScores();
+
+	void AddHighScore(int score);
+
+
 	//Getters and setters
 	const std::string GetName() const
 	{
 		return m_name; 
 	}
 
-	//took out 
 	void SetName(const std::string& newName)
 	{
 		m_name = newName; 
 	}
 
-	//took out const before and after
-	int GetScore()
+	const int GetScore() const
 	{
 		return m_score;
 	}
@@ -68,7 +71,8 @@ public:
 	{
 		m_scores = newScores;
 	}
-		
+
+	
 
 
 };

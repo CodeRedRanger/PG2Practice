@@ -57,15 +57,31 @@ void HighScore::LoadHighScores(const std::string file, const char scoreDelimiter
 
 	HighScores.close();
 
+	this->SetHighScores(scores); 
+
+
+}
+
+void HighScore::PrintHighScores() 
+{
+	std::vector<HighScore> scores = this->GetHighScores(); 
+
 	for (HighScore hs : scores)
 	{
 		std::string name = hs.GetName();
-		int score = hs.GetScore(); 
+		int score = hs.GetScore();
 		std::cout << std::left << std::setw(20) << name << std::right << score << std::endl;
 
 	}
 
-	std::cout << std::endl; 
+	std::cout << std::endl;
 
+
+}
+
+
+
+void HighScore::AddHighScore(int score)
+{
 
 }
