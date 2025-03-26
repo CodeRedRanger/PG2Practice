@@ -120,8 +120,6 @@ void Suspect::AddSuspect(const std::string& file, const char traitDelimiter)
 	{
 		Suspect sus;
 		//Add to map if name doesn't exist
-		//auto isInserted = suspects.insert(std::make_pair(name, std::vector<std::string>{"", "", "", ""}));
-		//suspects[name] = { "","","",""};
 		auto isInserted = suspects2.insert(std::make_pair(name, sus));
 
 		sus.SetName(name);
@@ -180,6 +178,17 @@ void Suspect::AddSuspect(const std::string& file, const char traitDelimiter)
 
 			//output it to csv, using seralize function
 			std::ofstream outFile(file);
+			
+
+			if (outFile.is_open())
+			{
+				//file is open
+			}
+
+			else
+			{
+				std::cout << "File is not open.\n" << std::endl;
+			}
 
 			for (std::map<std::string, Suspect>::iterator iter2 = suspects2.begin();
 				iter2 != suspects2.end(); ++iter2)
@@ -226,8 +235,17 @@ void Suspect::RemoveSuspect(const std::string& file, const char traitDelimiter)
 
 		//output updated list to csv, using seralize function
 
-		//char delimiter = '*';
 		std::ofstream outFile(file);
+
+		if (outFile.is_open())
+		{
+			//file is open
+		}
+
+		else
+		{
+			std::cout << "File is not open.\n" << std::endl;
+		}
 
 		for (std::map<std::string, Suspect>::iterator iter2 = suspects2.begin();
 			iter2 != suspects2.end(); ++iter2)
@@ -321,6 +339,16 @@ void Suspect::NewSuspectList(const std::string& file, const char traitDelimiter)
 
 	//output new map to csv using serialize function
 	std::ofstream suspectFile(file);
+
+	if (suspectFile.is_open())
+	{
+		//file is open
+	}
+
+	else
+	{
+		std::cout << "File is not open.\n" << std::endl;
+	}
 
 	for (std::map<std::string, Suspect>::iterator serialIt = suspects2.begin();
 		serialIt != suspects2.end(); ++serialIt)
@@ -488,25 +516,23 @@ void Suspect::PlayGame()
 
 void Suspect::Serialize(std::ofstream& outFile, char delimiter)
 {
+	if (outFile.is_open())
+	{
+		//file is open
+	}
+
+	else
+	{
+		std::cout << "File is not open.\n" << std::endl;
+	}
+
    outFile << m_name << delimiter << m_sex << delimiter << m_height << delimiter << m_hairColor << delimiter << m_eyeColor << "\n";
      
 }
 
 void Suspect::Deserialize(std::string csvData, char delimiter)
 {
-	//std::map <std::string, std::vector<std::string>> suspects;
 
-
-	//std::ifstream suspectFile(file);
-	//std::string suspect;
-	
-	//pass this to this function
-	//char traitDelimiter = '*';
-	
-	//std::vector<std::string> susTraitVec;
-
-	//while (std::getline(suspectFile, suspect))
-	//{
 
 		std::stringstream susTraits(csvData);
 		std::string trait;
