@@ -9,8 +9,6 @@
 
 class Suspect
 {
-	//serialize and deserialize functions
-	//create new map of characters
 
 private: //make private later
 	//instead of string, use enum??
