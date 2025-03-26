@@ -108,10 +108,10 @@ void Suspect::AddSuspect(const std::string& file, const char traitDelimiter)
 	getline(std::cin, name);
 	//Check map if name exists
 
-	std::map<std::string, Suspect> suspects2 = this->GetSuspectMap();
-	std::map<std::string, Suspect>::iterator isFound = suspects2.find(name);
+	std::map<std::string, Suspect> suspects = this->GetSuspectMap();
+	std::map<std::string, Suspect>::iterator isFound = suspects.find(name);
 
-	if (isFound != suspects2.end())
+	if (isFound != suspects.end())
 	{
 		std::cout << "\nThat suspect name already exists!\n" << std::endl;
 	}
@@ -120,11 +120,11 @@ void Suspect::AddSuspect(const std::string& file, const char traitDelimiter)
 	{
 		Suspect sus;
 		//Add to map if name doesn't exist
-		auto isInserted = suspects2.insert(std::make_pair(name, sus));
+		auto isInserted = suspects.insert(std::make_pair(name, sus));
 
 		sus.SetName(name);
-		suspects2[name] = sus;
-		this->SetSuspectMap(suspects2);
+		suspects[name] = sus;
+		this->SetSuspectMap(suspects);
 
 		//Add getline below. Can randomly generate height, hair and eye color
 		std::string sexStr;
@@ -148,14 +148,14 @@ void Suspect::AddSuspect(const std::string& file, const char traitDelimiter)
 			eyeColor = sus.GetEYECOLORS().at(rand() % sus.GetEYECOLORS().size());
 			sus.SetEyeColor(eyeColor);
 
-			suspects2[name] = sus;
-			this->SetSuspectMap(suspects2);
+			suspects[name] = sus;
+			this->SetSuspectMap(suspects);
 
 			std::cout << "\n" << name << " has been added to the suspect list!\n" << std::endl;
 
 			//Warns player if new suspect has all of the same traits as another suspect (this will make game harder)
-			for (std::map<std::string, Suspect>::iterator iter3 = suspects2.begin();
-				iter3 != suspects2.end(); ++iter3)
+			for (std::map<std::string, Suspect>::iterator iter3 = suspects.begin();
+				iter3 != suspects.end(); ++iter3)
 			{
 				if (sus.GetName() != iter3->second.GetName() && sus.GetSex() == iter3->second.GetSex()
 					&& sus.GetHeight() == iter3->second.GetHeight()
@@ -190,8 +190,8 @@ void Suspect::AddSuspect(const std::string& file, const char traitDelimiter)
 				std::cout << "File is not open.\n" << std::endl;
 			}
 
-			for (std::map<std::string, Suspect>::iterator iter2 = suspects2.begin();
-				iter2 != suspects2.end(); ++iter2)
+			for (std::map<std::string, Suspect>::iterator iter2 = suspects.begin();
+				iter2 != suspects.end(); ++iter2)
 			{
 				iter2->second.Serialize(outFile, traitDelimiter);
 			}
@@ -201,8 +201,8 @@ void Suspect::AddSuspect(const std::string& file, const char traitDelimiter)
 		else
 		{
 			std::cout << "\nInvalid input\n" << std::endl;
-			suspects2.erase(name);
-			this->SetSuspectMap(suspects2);
+			suspects.erase(name);
+			this->SetSuspectMap(suspects);
 		}
 
 	}
@@ -217,11 +217,11 @@ void Suspect::RemoveSuspect(const std::string& file, const char traitDelimiter)
 	getline(std::cin, name);
 
 	//Check map if name exists
-	std::map<std::string, Suspect> suspects2 = this->GetSuspectMap();
+	std::map<std::string, Suspect> suspects = this->GetSuspectMap();
 
-	std::map<std::string, Suspect>::iterator isFound = suspects2.find(name);
+	std::map<std::string, Suspect>::iterator isFound = suspects.find(name);
 
-	if (isFound == suspects2.end())
+	if (isFound == suspects.end())
 	{
 		std::cout << "\n" << name << " is not on the suspect list!\n" << std::endl;
 	}
@@ -229,9 +229,9 @@ void Suspect::RemoveSuspect(const std::string& file, const char traitDelimiter)
 	else
 	{
 
-		suspects2.erase(name);
+		suspects.erase(name);
 		std::cout << "\n" << name << " has been removed from the suspect list!\n" << std::endl;
-		this->SetSuspectMap(suspects2);
+		this->SetSuspectMap(suspects);
 
 		//output updated list to csv, using seralize function
 
@@ -247,8 +247,8 @@ void Suspect::RemoveSuspect(const std::string& file, const char traitDelimiter)
 			std::cout << "File is not open.\n" << std::endl;
 		}
 
-		for (std::map<std::string, Suspect>::iterator iter2 = suspects2.begin();
-			iter2 != suspects2.end(); ++iter2)
+		for (std::map<std::string, Suspect>::iterator iter2 = suspects.begin();
+			iter2 != suspects.end(); ++iter2)
 		{
 
 			iter2->second.Serialize(outFile, traitDelimiter);
@@ -261,8 +261,8 @@ void Suspect::NewSuspectList(const std::string& file, const char traitDelimiter)
 {
 
 	//Delete map
-	std::map<std::string, Suspect> suspects2;
-	this->SetSuspectMap(suspects2);
+	std::map<std::string, Suspect> suspects;
+	this->SetSuspectMap(suspects);
 
 	Suspect sus;
 
@@ -302,8 +302,8 @@ void Suspect::NewSuspectList(const std::string& file, const char traitDelimiter)
 		//even if the names are different
 		bool allTraitsSame = false;
 
-		for (std::map<std::string, Suspect>::iterator traitChecker = suspects2.begin();
-			traitChecker != suspects2.end(); ++traitChecker)
+		for (std::map<std::string, Suspect>::iterator traitChecker = suspects.begin();
+			traitChecker != suspects.end(); ++traitChecker)
 		{
 			if (traitChecker->second.GetSex() == sus.GetSex() &&
 				traitChecker->second.GetHeight() == sus.GetHeight() &&
@@ -316,13 +316,13 @@ void Suspect::NewSuspectList(const std::string& file, const char traitDelimiter)
 		}
 
 
-		std::map<std::string, Suspect>::iterator isFound = suspects2.find(name);
+		std::map<std::string, Suspect>::iterator isFound = suspects.find(name);
 
 		//save suspect to map if names are different and all traits are not the same
-		if (isFound == suspects2.end() && allTraitsSame == false)
+		if (isFound == suspects.end() && allTraitsSame == false)
 		{
 
-			suspects2[name] = sus;
+			suspects[name] = sus;
 
 		}
 		else
@@ -335,7 +335,7 @@ void Suspect::NewSuspectList(const std::string& file, const char traitDelimiter)
 
 	}
 
-	this->SetSuspectMap(suspects2);
+	this->SetSuspectMap(suspects);
 
 	//output new map to csv using serialize function
 	std::ofstream suspectFile(file);
@@ -350,8 +350,8 @@ void Suspect::NewSuspectList(const std::string& file, const char traitDelimiter)
 		std::cout << "File is not open.\n" << std::endl;
 	}
 
-	for (std::map<std::string, Suspect>::iterator serialIt = suspects2.begin();
-		serialIt != suspects2.end(); ++serialIt)
+	for (std::map<std::string, Suspect>::iterator serialIt = suspects.begin();
+		serialIt != suspects.end(); ++serialIt)
 	{
 		serialIt->second.Serialize(suspectFile, traitDelimiter);
 	}
@@ -366,11 +366,11 @@ void Suspect::NewSuspectList(const std::string& file, const char traitDelimiter)
 void Suspect::PlayGame()
 {
 	//Select suspect key from map
-	std::map<std::string, Suspect> suspects2 = this->GetSuspectMap();
+	std::map<std::string, Suspect> suspects = this->GetSuspectMap();
 
-	int randomNum = rand() % suspects2.size();
+	int randomNum = rand() % suspects.size();
 
-	std::map<std::string, Suspect>::iterator iterRand = suspects2.begin();
+	std::map<std::string, Suspect>::iterator iterRand = suspects.begin();
 
 	std::advance(iterRand, randomNum);
 
@@ -547,18 +547,7 @@ void Suspect::Deserialize(std::string csvData, char delimiter)
 			if (i == 3) this->SetHairColor(trait);
 			if (i == 4) this->SetEyeColor(trait);
 		}
-			//susTraitVec.push_back(trait);
+			
 		
-	
-
-	//suspectFile.close();
-
-	//for (std::vector<std::string>::iterator it = susTraitVec.begin(); it != susTraitVec.end(); it += 5)
-	//{
-
-	//	suspects[*it] = { (*(it + 1)), (*(it + 2)), (*(it + 3)), (*(it + 4)) };
-
-
-	//}
 
 }

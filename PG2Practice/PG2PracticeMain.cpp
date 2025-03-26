@@ -27,9 +27,10 @@ int main()
 
 	Suspect suspect; 
 
-	std::map<std::string, Suspect> suspects2; 
-	suspects2 = suspect.LoadSuspects(file, traitDelimiter);
-	suspect.SetSuspectMap(suspects2); 
+	//std::map<std::string, Suspect> suspects2; 
+	//suspects2 = suspect.LoadSuspects(file, traitDelimiter);
+	//suspect.SetSuspectMap(suspects2); 
+	suspect.SetSuspectMap(suspect.LoadSuspects(file, traitDelimiter));
 
 	bool gameOver = false; 
 
