@@ -3,10 +3,8 @@
 void Person::Draw()
 {
 
-	//hairColor = this->GetHairColor();
 	std::string eyeColorStr = this->GetEyeColor();
 
-	//ConsoleColor hairColor;
 	ConsoleColor eyeColor; 
 
 	if (eyeColorStr == "Blue") eyeColor = ConsoleColor::Blue;
@@ -50,9 +48,6 @@ void Person::Draw()
 	Pixel nose(nose1, ConsoleColor::White);
 
 	nose.Draw();
-
-
-
 
 
 }

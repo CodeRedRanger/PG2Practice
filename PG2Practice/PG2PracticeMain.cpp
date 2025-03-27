@@ -1,11 +1,3 @@
-//Additional functionality
-//1. Create abstract class Person, with derived classes male and female
-//each derived class overrides draw function of person class and draws face of character on screen
-//face will be a circle with eyes and hair of the correct color; females with hair will have long hair, men short hair
-//2. use friend keyword so that person class can use private variables in Suspect. 
-//3. create vector of person unique pointers to all the people (male and females) on suspect list, with their associated traits for drawing
-
-
 #include <iostream> //for cout
 #include <memory> //for smart pointers
 #include <map> // for map
@@ -114,13 +106,11 @@ int main()
 				if (suspect.GetSex() == "Male")
 				{
 					std::unique_ptr<Person> pMale = std::make_unique<Male>(suspect.GetEyeColor(), suspect.GetHairColor());
-					//need to pass hair and eye color to draw
 					pMale->Draw(); 
 				}
 				else
 				{
 					std::unique_ptr<Person> pFemale = std::make_unique<Female>(suspect.GetEyeColor(), suspect.GetHairColor());
-					//need to pass hair and eye color to draw
 					pFemale->Draw(); 
 				}
 
