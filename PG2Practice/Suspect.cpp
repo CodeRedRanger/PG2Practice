@@ -106,14 +106,17 @@ void Suspect::AddSuspect(const std::string& file, const char traitDelimiter)
 	std::string eyeColor;
 	std::cout << "\nWhat is your character's name? ";
 	getline(std::cin, name);
+	
 	//Check map if name exists
-
+	name[0] = toupper(name[0]); 
 	std::map<std::string, Suspect> suspects = this->GetSuspectMap();
 	std::map<std::string, Suspect>::iterator isFound = suspects.find(name);
 
+	
+
 	if (isFound != suspects.end())
 	{
-		std::cout << "\nThat suspect name already exists!\n" << std::endl;
+		std::cout << "\n" << name << " is already on the suspect list!\n" << std::endl;
 	}
 
 	else
@@ -217,8 +220,8 @@ void Suspect::RemoveSuspect(const std::string& file, const char traitDelimiter)
 	getline(std::cin, name);
 
 	//Check map if name exists
+	name[0] = toupper(name[0]);
 	std::map<std::string, Suspect> suspects = this->GetSuspectMap();
-
 	std::map<std::string, Suspect>::iterator isFound = suspects.find(name);
 
 	if (isFound == suspects.end())
@@ -422,8 +425,8 @@ void Suspect::PlayGame()
 					}
 
 					std::cout << "Number of clues needed to guess culprit: " << numberOfClues << "\n";
-					std::cout << "\nTotal score [11 - (number of guesses + number of clues)] : " << std::max(score, 0) << "\n"
-						<< std::endl;
+					std::cout << "\nTotal score: " << std::max(score, 0) << "\n";
+					std::cout << "Score calculation: 11 - (number of guesses + number of clues)\n" << std::endl;
 
 					this->SetScore(score); 
 					continuePlay = false;
