@@ -57,8 +57,16 @@ int main()
 
 	std::string choiceStr; 
 	getline(std::cin, choiceStr); 
-	int choice = stoi(choiceStr); 
+	int choice; 
 
+	try
+	{
+		choice = stoi(choiceStr);
+	}
+	catch (...)
+	{
+		choice = 0; 
+	}
 
 		switch (choice)
 		{
@@ -138,12 +146,16 @@ int main()
 			}
 
 			case 7:
-				gameOver = true; 
-				break; 
+			{
+				gameOver = true;
+				break;
+			}
 
 			default:
-				break; 
-
+			{
+				std::cout << "Invalid choice!\n" << std::endl;
+				break;
+			}
 		}
 
 	}

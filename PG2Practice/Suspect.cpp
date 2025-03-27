@@ -399,7 +399,16 @@ void Suspect::PlayGame()
 
 		getline(std::cin, choiceStr);
 
-		int choice = stoi(choiceStr);
+		int choice; 
+
+		try
+		{
+			choice = stoi(choiceStr);
+		}
+		catch (...)
+		{
+			choice = 0;
+		}
 
 		switch (choice)
 		{
@@ -455,7 +464,16 @@ void Suspect::PlayGame()
 				std::string traitChoiceStr;
 				getline(std::cin, traitChoiceStr);
 
-				int traitChoice = stoi(traitChoiceStr);
+				int traitChoice;
+
+				try
+				{
+					traitChoice = stoi(traitChoiceStr);
+				}
+				catch (...)
+				{
+					traitChoice = 0;
+				}
 
 				switch (traitChoice)
 				{
