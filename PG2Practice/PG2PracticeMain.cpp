@@ -1,22 +1,23 @@
 //Additional functionality
-//1. Add display high scores to menu and add high scores when user gets them; create high score csv file
-//2. Create abstract class Person, with derived classes male and female
+//1. Create abstract class Person, with derived classes male and female
 //each derived class overrides draw function of person class and draws face of character on screen
 //face will be a circle with eyes and hair of the correct color; females with hair will have long hair, men short hair
-//3. use friend keyword so that person class can use private variables in Suspect. 
-//4. create vector of person unique pointers to all the people (male and females) on suspect list, with their associated traits for drawing
+//2. use friend keyword so that person class can use private variables in Suspect. 
+//3. create vector of person unique pointers to all the people (male and females) on suspect list, with their associated traits for drawing
 
 
-#include <iostream>
-#include <memory>
+#include <iostream> //for cout
+#include <memory> //for smart pointers
 #include <map> // for map
 #include <vector>
-#include <fstream> //for input stream
-#include <string>
+#include <fstream> //for input/output file streams
+#include <string> //for strings and getline
 #include <sstream> //for stringstream
 #include <algorithm> //for max()
 #include "Suspect.h"
 #include "HighScore.h"
+#include "Male.h"
+#include "Female.h"
 
 int main()
 {
@@ -94,9 +95,33 @@ int main()
 			}
 
 			case 5:
-			{
-				suspect.PlayGame(); 
+			{	
 				
+				suspect.PlayGame(); 
+
+				system("pause"); 
+				system("cls"); 
+
+				//Drawing suspect begin
+				if (suspect.GetSex() == "Male")
+				{
+					std::unique_ptr<Person> pMale = std::make_unique<Male>(); 
+					pMale->Draw(); 
+				}
+				else
+				{
+					std::unique_ptr<Person> pFemale = std::make_unique<Female>(); 
+					pFemale->Draw(); 
+				}
+
+				Console::SetCursorPosition(58, 26);  
+				std::cout << suspect.GetName();
+
+				Console::SetCursorPosition(1, 1);
+				system("pause"); 
+				system("cls"); 
+				//Drawing suspect end
+
 				HighScore newScore;
 				newScore.SetName(name);
 				newScore.SetScore(suspect.GetScore());

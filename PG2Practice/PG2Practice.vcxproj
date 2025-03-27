@@ -143,12 +143,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Circle.cpp" />
+    <ClCompile Include="Console.cpp" />
+    <ClCompile Include="Female.cpp" />
     <ClCompile Include="HighScore.cpp" />
+    <ClCompile Include="Line.cpp" />
+    <ClCompile Include="Male.cpp" />
+    <ClCompile Include="Person.cpp" />
     <ClCompile Include="PG2PracticeMain.cpp" />
+    <ClCompile Include="Pixel.cpp" />
+    <ClCompile Include="Shape.cpp" />
+    <ClCompile Include="ShapeFactory.cpp" />
     <ClCompile Include="Suspect.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Circle.h" />
+    <ClInclude Include="Console.h" />
+    <ClInclude Include="Female.h" />
     <ClInclude Include="HighScore.h" />
+    <ClInclude Include="Line.h" />
+    <ClInclude Include="Male.h" />
+    <ClInclude Include="Person.h" />
+    <ClInclude Include="Pixel.h" />
+    <ClInclude Include="Point2D.h" />
+    <ClInclude Include="Shape.h" />
+    <ClInclude Include="ShapeFactory.h" />
     <ClInclude Include="Suspect.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

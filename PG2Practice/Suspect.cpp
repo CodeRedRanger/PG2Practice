@@ -378,6 +378,9 @@ void Suspect::PlayGame()
 	std::advance(iterRand, randomNum);
 
 	Suspect sus2 = iterRand->second;
+	//used to print character profile in main loop
+	this->SetName(sus2.GetName());
+	this->SetSex(sus2.GetSex()); 
 
 	int numberOfGuesses = 1;
 	int numberOfClues = 0;
