@@ -27,12 +27,9 @@ void HighScore::Deserialize(std::string scoreStr, char scoreDelimiter)
 
 }
 
-void HighScore::Serialize(std::ofstream& outFile, char scoreDelimiter, std::vector<HighScore>& scores)
+void HighScore::Serialize(std::ofstream& outFile, char scoreDelimiter)
 {
-	for (HighScore score : scores)
-	{
-		outFile << score.GetName() << scoreDelimiter << score.GetScore() << "\n";
-	}
+	outFile << m_name << scoreDelimiter << m_score << "\n";
 }
 
 void HighScore::LoadHighScores(const std::string file, const char scoreDelimiter)
@@ -56,7 +53,6 @@ void HighScore::LoadHighScores(const std::string file, const char scoreDelimiter
 	while (std::getline(HighScores, nameAndScore))
 	{
 		
-		//new highScore is doesn't have variables set
 		HighScore highScore(nameAndScore, scoreDelimiter); 
 		scores.push_back(highScore);		
 
@@ -130,8 +126,10 @@ void HighScore::SaveHighScores(std::string file, std::vector<HighScore> scores, 
 		std::cout << file << " was not opened!\n" << std::endl; 
 	}
 
-	this->Serialize(outFile, scoreDelimiter, scores); 
-
+	for (HighScore score : scores)
+	{
+		score.Serialize(outFile, scoreDelimiter);
+	}
 
 	outFile.close(); 
 

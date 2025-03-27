@@ -32,7 +32,7 @@ public:
 
 	void Deserialize(std::string scoreStr, char scoreDelimiter); 
 
-	void Serialize(std::ofstream& outFile, char scoreDelimiter, std::vector<HighScore>& scores); 
+	void Serialize(std::ofstream& outFile, char scoreDelimiter); 
 
 	void LoadHighScores(const std::string file, const char scoreDelimiter);
 
