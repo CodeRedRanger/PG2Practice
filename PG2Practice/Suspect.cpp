@@ -402,8 +402,10 @@ void Suspect::PlayGame()
 				std::string suspectGuess;
 				std::cout << "\nWho do you think committed the crime? ";
 				getline(std::cin, suspectGuess);
+				int compResult = _strcmpi(suspectGuess.c_str(), sus2.GetName().c_str()); 
 
-				if (suspectGuess == sus2.GetName())
+				//if (suspectGuess == sus2.GetName())
+				if (compResult == 0)
 				{
 					std::cout << "\nThat's right!\n";
 					std::cout << "The culprit is " << sus2.GetName() << "!\n";
