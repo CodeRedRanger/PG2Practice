@@ -8,20 +8,28 @@ class Person
 private:
 
 protected:
-
-	int m_x; 
-	int m_y; 
-	int m_radius; 
+ 
+	std::string m_eyeColor; 
 	
 
 public:
 
-	Person(int x = 0, int y = 0, int radius = 0) : m_x(x), m_y(y), m_radius(radius)
+	Person(std::string eyeColor = "Blue") : m_eyeColor(eyeColor) 
 	{
 
 	}
 
 	virtual void Draw();
 
+
+	const std::string& GetEyeColor()
+	{
+		return m_eyeColor;
+	}
+
+	void SetEyeColor(const std::string& eyeColor)
+	{
+		m_eyeColor = eyeColor;
+	}
 
 };

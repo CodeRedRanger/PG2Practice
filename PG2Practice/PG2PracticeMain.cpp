@@ -113,12 +113,14 @@ int main()
 				//Drawing suspect begin
 				if (suspect.GetSex() == "Male")
 				{
-					std::unique_ptr<Person> pMale = std::make_unique<Male>(); 
+					std::unique_ptr<Person> pMale = std::make_unique<Male>(suspect.GetEyeColor(), suspect.GetHairColor());
+					//need to pass hair and eye color to draw
 					pMale->Draw(); 
 				}
 				else
 				{
-					std::unique_ptr<Person> pFemale = std::make_unique<Female>(); 
+					std::unique_ptr<Person> pFemale = std::make_unique<Female>(suspect.GetEyeColor(), suspect.GetHairColor());
+					//need to pass hair and eye color to draw
 					pFemale->Draw(); 
 				}
 

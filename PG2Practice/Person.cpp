@@ -2,6 +2,18 @@
 
 void Person::Draw()
 {
+
+	//hairColor = this->GetHairColor();
+	std::string eyeColorStr = this->GetEyeColor();
+
+	//ConsoleColor hairColor;
+	ConsoleColor eyeColor; 
+
+	if (eyeColorStr == "Blue") eyeColor = ConsoleColor::Blue;
+	if (eyeColorStr == "Brown") eyeColor = ConsoleColor::Red;
+	if (eyeColorStr == "Green") eyeColor = ConsoleColor::Green;
+
+
 	Point2D center(60, 15); 
 	int radius = 10; 
 	
@@ -12,8 +24,8 @@ void Person::Draw()
 	Point2D eye1(57, 13);
 	Point2D eye2(63, 13); 
 
-	Pixel eyeL(eye1, ConsoleColor::Blue); 
-	Pixel eyeR(eye2, ConsoleColor::Blue); 
+	Pixel eyeL(eye1, eyeColor); 
+	Pixel eyeR(eye2, eyeColor); 
 
 	eyeL.Draw();
 	eyeR.Draw(); 

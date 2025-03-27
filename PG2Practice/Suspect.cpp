@@ -381,6 +381,8 @@ void Suspect::PlayGame()
 	//used to print character profile in main loop
 	this->SetName(sus2.GetName());
 	this->SetSex(sus2.GetSex()); 
+	this->SetHairColor(sus2.GetHairColor()); 
+	this->SetEyeColor(sus2.GetEyeColor()); 
 
 	int numberOfGuesses = 1;
 	int numberOfClues = 0;
