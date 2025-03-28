@@ -31,6 +31,11 @@ private: //make private later
 	std::vector<std::string> EYECOLORS = { "Blue", "Brown", "Green" };	
 
 public:
+	//practice using friend
+	//Would have to pass a Suspect to person's (male/female) draw function, then it could directly access sex, height, etc
+	//without a getter function
+	//then would not have to pass suspect's traits to male/female constructors
+	friend void Person::Draw(); 
 
 	Suspect()
 	{
